@@ -19,53 +19,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img2.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">k2 snowboard 2018</a></td>
-                                <td class="pro-price"><span>#295.00</span></td>
-                                <td class="pro-quantity">
-                                    <div class="pro-qty"><input type="text" value="1"></div>
-                                </td>
-                                <td class="pro-subtotal"><span>#295.00</span></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img3.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">Aquet Drone D 420</a></td>
-                                <td class="pro-price"><span>#275.00</span></td>
-                                <td class="pro-quantity">
-                                    <div class="pro-qty"><input type="text" value="2"></div>
-                                </td>
-                                <td class="pro-subtotal"><span>#550.00</span></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img4.jpg" alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">berzerker snowboard</a></td>
-                                <td class="pro-price"><span>#295.00</span></td>
-                                <td class="pro-quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1" />
-                                    </div>
-                                </td>
-                                <td class="pro-subtotal"><span>#295.00</span></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img5.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">element snowboard</a></td>
-                                <td class="pro-price"><span>#110.00</span></td>
-                                <td class="pro-quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="3" />
-                                    </div>
-                                </td>
-                                <td class="pro-subtotal"><span>#110.00</span></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
+                                <form action="{{ route('update-cart') }}" method="post">
+                                    @foreach ($carts as $cart)
+                                        <tr>
+                                            @php
+                                                $product = App\Product::find($cart->product_id);
+                                                // return response()->json($cart);
+                                            @endphp
+                                            <td class="pro-thumbnail"><a href="{{ route('product-details', $product->id) }}"><img class="img-fluid" src="{{asset('public/uploads/'.$product->image)}}"
+                                                                                        alt="Product"/></a></td>
+                                            <td class="pro-title">{{$product->name}}<a href="{{ route('product-details', $product->id) }}">
+                                                
+                                            </a></td>
+                                            <td class="pro-price"><span>#{{$cart->product_price}}</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty"><input id="product-quantity" type="text" value="{{$cart->product_quantity}}"></div>
+                                            </td>
+
+                                            <span><input id="product-quantity-hidden{{$cart->product_id}}" type="hidden" name[]="product_quantity"
+                                                onchange="handleQuantityChange({{$cart->product_id}})"
+                                                >
+                                            <span><input type="hidden" value="{{$cart->product_id}}" name[]="product_id">
+                                            
+
+                                            <td class="pro-subtotal"><span>#{{$cart->product_quantity * $cart->product_price}}</span></td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                </form>
                             </tbody>
                         </table>
                     </div>
@@ -79,7 +60,7 @@
                             </form>
                         </div>
                         <div class="cart-update mt-sm-16">
-                            <a href="#" class="sqr-btn">Update Cart</a>
+                            <a href="{{ route('update-cart') }}" class="sqr-btn">Update Cart</a>
                         </div>
                     </div>
                 </div>
@@ -95,25 +76,47 @@
                                 <table class="table">
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td>#230</td>
+                                        @php
+                                            $subtotal = 0;
+                                            $shipping = 0;
+                                            for($i=0; $i< count($carts); $i++){
+                                                $subtotal = $carts[$i]->product_price * $carts[$i]->product_quantity;
+                                                $shipping = $shipping + App\Product::find($carts[$i]->product_id)->shipping_cost;
+                                            }
+                                        @endphp
+                                        <td>#{{($subtotal)}}</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
-                                        <td>#70</td>
+                                        <td>#{{($shipping)}}</td>
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">#300</td>
+                                        <td class="total-amount">#{{ $subtotal + $shipping }}</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <a href="checkout.html" class="sqr-btn d-block">Proceed To Checkout</a>
+                        <a href="{{ route('checkout') }}" class="sqr-btn d-block">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- cart main wrapper end -->
+
+    <script>
+        function handleQuantityChange(){
+            
+        }
+        var product_quantity = document.getElementById('product-quantity1')
+        var product_quantity_hidden = document.getElementById('product-quantity-hidden')
+
+        console.log(product_quantity)
+
+        product_quantity.onchange => () {
+            console.log('Product quantity changed')
+        }
+    </script>
 
 @endsection

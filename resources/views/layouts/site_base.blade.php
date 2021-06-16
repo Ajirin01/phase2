@@ -120,8 +120,21 @@
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="myaccount">
                                                     <a class="dropdown-item" href="{{route('my-account')}}">my account</a>
-                                                    <a class="dropdown-item" href="{{route('register-login')}}"> login</a>
-                                                    <a class="dropdown-item" href="{{route('register-login')}}">register</a>
+                                                    @auth
+                                                        <form id="logout" action="{{ route('logout') }}" method="post">
+                                                            @csrf
+                                                            <a class="dropdown-item" href="{{route('logout')}}"
+                                                                onclick="
+                                                                event.preventDefault();
+                                                                document.getElementById('logout').submit();
+                                                                "
+                                                            > logout</a>
+                                                        </form>
+                                                    @endauth
+                                                    @guest
+                                                        <a class="dropdown-item" href="{{route('register-login')}}"> login</a>
+                                                        <a class="dropdown-item" href="{{route('register-login')}}">register</a>
+                                                    @endguest
                                                 </div>
                                             </div>
                                         </li>

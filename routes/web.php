@@ -28,7 +28,7 @@ Route::get('/home', function(){
 
 
 Route::get('product-detials/{product}', 'SiteController@product_details')->name('product-details');
-Route::get('add-to-cart/', 'SiteController@add_to_cart')->name('add-to-cart');
+Route::post('add-to-cart/', 'SiteController@add_to_cart')->name('add-to-cart');
 Route::get('cart/', 'SiteController@cart')->name('cart');
 Route::post('update-cart', 'SiteController@update_cart')->name('update-cart');
 Route::get('checkout/', 'SiteController@checkout')->name('checkout');
@@ -42,10 +42,18 @@ Route::get('shop/', 'SiteController@shop')->name('shop');
 Route::get('products-by-category/{category}', 'SiteController@products_by_category')->name('products-by-category');
 Route::get('products-by-brand/{brand}', 'SiteController@products_by_brand')->name('products-by-brand');
 Route::post('shopping-setting/', 'SiteController@shopping_setting')->name('shopping-setting');
+Route::post('logout/', 'SiteController@logout')->name('logout');
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', 'Admin\DashboardController@dashboard');
     Route::resource('products',	'Admin\ProductsController');
     Route::resource('brands',	'Admin\BrandsController');
     Route::resource('categories',	'Admin\CategoriesController');
+}); 
+
+Route::prefix('retail')->group(function () {
+    // Route::get('sale', 'Admin\DashboardController@dashboard');
+    Route::resource('sales',	'Admin\Pos\SalesController');
+    // Route::resource('brands',	'Admin\BrandsController');
+    // Route::resource('categories',	'Admin\CategoriesController');
 }); 

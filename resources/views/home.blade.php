@@ -113,6 +113,7 @@
                                                     <span>hot</span>
                                                 </div>
                                                 <div class="product-action-link">
+                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="top" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                     <a href="{{ route('product-details', $product->name) }}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                             class="fa fa-shopping-cart"></i></a>
                                                 </div>
@@ -124,6 +125,58 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Quick view modal start -->
+                                        <div class="modal" id="quick_view">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- product details inner end -->
+                                                        <div class="product-details-inner">
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                        <div class="pro-large-img">
+                                                                            <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-7">
+                                                                    <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                        <div class="availability mt-10">
+                                                                            <h5>Availability:</h5>
+                                                                            <span>{{$product->wholesale_stock}} in stock</span>
+                                                                        </div>
+                                                                        <div class="pricebox">
+                                                                            <span class="regular-price">#{{$product->wholasale_price}}</span>
+                                                                        </div>
+                                                                        <div style="word-wrap: word-break">
+                                                                            @php
+                                                                                echo $product->description ;
+                                                                            @endphp
+                                                                        </div>
+                                                                        
+                                                                        <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                            <div class="quantity">
+                                                                                <div class="pro-qty"><input type="text" value="1"></div>
+                                                                            </div>
+                                                                            <div class="action_link">
+                                                                                <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- product details inner end -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Quick view modal end -->
                                     @else
                                         <div class="product-item fix">
                                             <div class="product-thumb">
@@ -135,6 +188,7 @@
                                                     <span>hot</span>
                                                 </div>
                                                 <div class="product-action-link">
+                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                     <a href="{{ route('product-details', $product->name) }}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                             class="fa fa-shopping-cart"></i></a>
                                                 </div>
@@ -146,6 +200,59 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Quick view modal start -->
+                                        <div class="modal" id="quick_view">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- product details inner end -->
+                                                        <div class="product-details-inner">
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                        <div class="pro-large-img">
+                                                                            <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-7">
+                                                                    <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                        <div class="availability mt-10">
+                                                                            <h5>Availability:</h5>
+                                                                            <span>{{$product->stock}} in stock</span>
+                                                                        </div>
+                                                                        <div class="pricebox">
+                                                                            <span class="regular-price">#{{$product->price}}</span>
+                                                                        </div>
+                                                                        <div style="word-wrap: word-break">
+                                                                            @php
+                                                                                echo $product->description ;
+                                                                            @endphp
+                                                                        </div>
+                                                                        
+                                                                        <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                            <div class="quantity">
+                                                                                <div class="pro-qty"><input type="text" value="1"></div>
+                                                                            </div>
+                                                                            <div class="action_link">
+                                                                                <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- product details inner end -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Quick view modal end -->
                                     @endif
                                     
                                   @endforeach
@@ -204,6 +311,7 @@
                                                 <span>new</span>
                                             </div>
                                             <div class="product-action-link">
+                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                 <a href="{{ route('product-details', $product->name) }}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                         class="fa fa-shopping-cart"></i></a>
                                             </div>
@@ -215,6 +323,58 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Quick view modal start -->
+                                    <div class="modal" id="quick_view">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- product details inner end -->
+                                                    <div class="product-details-inner">
+                                                        <div class="row">
+                                                            <div class="col-lg-5">
+                                                                <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                    <div class="pro-large-img">
+                                                                        <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-7">
+                                                                <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                    <div class="availability mt-10">
+                                                                        <h5>Availability:</h5>
+                                                                        <span>{{$product->wholasale_stock}} in stock</span>
+                                                                    </div>
+                                                                    <div class="pricebox">
+                                                                        <span class="regular-price">#{{$product->wholasale_price}}</span>
+                                                                    </div>
+                                                                    <div style="word-wrap: word-break">
+                                                                        @php
+                                                                            echo $product->description ;
+                                                                        @endphp
+                                                                    </div>
+                                                                    
+                                                                    <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                        <div class="quantity">
+                                                                            <div class="pro-qty"><input type="text" value="1"></div>
+                                                                        </div>
+                                                                        <div class="action_link">
+                                                                            <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- product details inner end -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quick view modal end -->
                                 @else
                                     <div class="product-item fix">
                                         <div class="product-thumb">
@@ -226,7 +386,8 @@
                                                 <span>new</span>
                                             </div>
                                             <div class="product-action-link">
-                                                <a href="{{ route('product-details', $product->name) }}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
+                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
+                                                <a href="{{ route('product-details', $product->name ) }}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                         class="fa fa-shopping-cart"></i></a>
                                             </div>
                                         </div>
@@ -237,6 +398,58 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Quick view modal start -->
+                                    <div class="modal" id="quick_view">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- product details inner end -->
+                                                    <div class="product-details-inner">
+                                                        <div class="row">
+                                                            <div class="col-lg-5">
+                                                                <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                    <div class="pro-large-img">
+                                                                        <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-7">
+                                                                <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                    <div class="availability mt-10">
+                                                                        <h5>Availability:</h5>
+                                                                        <span>{{$product->stock}} in stock</span>
+                                                                    </div>
+                                                                    <div class="pricebox">
+                                                                        <span class="regular-price">#{{$product->price}}</span>
+                                                                    </div>
+                                                                    <div style="word-wrap: word-break">
+                                                                        @php
+                                                                            echo $product->description ;
+                                                                        @endphp
+                                                                    </div>
+                                                                    
+                                                                    <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                        <div class="quantity">
+                                                                            <div class="pro-qty"><input type="text" value="1"></div>
+                                                                        </div>
+                                                                        <div class="action_link">
+                                                                            <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- product details inner end -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quick view modal end -->
                                 @endif
                                 
                               @endforeach
@@ -301,6 +514,59 @@
                                                         </div>
                                                     </div> <!-- end single item -->
                                                 </div>
+
+                                                <!-- Quick view modal start -->
+                                                <div class="modal" id="quick_view">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- product details inner end -->
+                                                                <div class="product-details-inner">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                                <div class="pro-large-img">
+                                                                                    <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                                <div class="availability mt-10">
+                                                                                    <h5>Availability:</h5>
+                                                                                    <span>{{$product->wholesale_stock}} in stock</span>
+                                                                                </div>
+                                                                                <div class="pricebox">
+                                                                                    <span class="regular-price">#{{$product->wholesale_price}}</span>
+                                                                                </div>
+                                                                                <div style="word-wrap: word-break">
+                                                                                    @php
+                                                                                        echo $product->description ;
+                                                                                    @endphp
+                                                                                </div>
+                                                                                
+                                                                                <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                                    <div class="quantity">
+                                                                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                                                                    </div>
+                                                                                    <div class="action_link">
+                                                                                        <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- product details inner end -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Quick view modal end -->
                                             @else
                                                 <div class="col">
                                                     <div class="category-item">
@@ -322,6 +588,59 @@
                                                         </div>
                                                     </div> <!-- end single item -->
                                                 </div>
+
+                                                <!-- Quick view modal start -->
+                                                <div class="modal" id="quick_view">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- product details inner end -->
+                                                                <div class="product-details-inner">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                                <div class="pro-large-img">
+                                                                                    <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                                <div class="availability mt-10">
+                                                                                    <h5>Availability:</h5>
+                                                                                    <span>{{$product->stock}} in stock</span>
+                                                                                </div>
+                                                                                <div class="pricebox">
+                                                                                    <span class="regular-price">#{{$product->price}}</span>
+                                                                                </div>
+                                                                                <div style="word-wrap: word-break">
+                                                                                    @php
+                                                                                        echo $product->description ;
+                                                                                    @endphp
+                                                                                </div>
+                                                                                
+                                                                                <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                                    <div class="quantity">
+                                                                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                                                                    </div>
+                                                                                    <div class="action_link">
+                                                                                        <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- product details inner end -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Quick view modal end -->
                                             @endif
                                              
                                             <!-- end single item column -->
@@ -356,7 +675,60 @@
                                                             </div>
                                                         </div>
                                                     </div> <!-- end single item -->
-                                                </div> 
+                                                </div>
+
+                                                <!-- Quick view modal start -->
+                                                <div class="modal" id="quick_view">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- product details inner end -->
+                                                                <div class="product-details-inner">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                                <div class="pro-large-img">
+                                                                                    <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                                <div class="availability mt-10">
+                                                                                    <h5>Availability:</h5>
+                                                                                    <span>{{$product->wholesale_stock}} in stock</span>
+                                                                                </div>
+                                                                                <div class="pricebox">
+                                                                                    <span class="regular-price">#{{$product->wholesale_price}}</span>
+                                                                                </div>
+                                                                                <div style="word-wrap: word-break">
+                                                                                    @php
+                                                                                        echo $product->description ;
+                                                                                    @endphp
+                                                                                </div>
+                                                                                
+                                                                                <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                                    <div class="quantity">
+                                                                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                                                                    </div>
+                                                                                    <div class="action_link">
+                                                                                        <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- product details inner end -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Quick view modal end -->
                                             @else
                                                 <div class="col">
                                                     <div class="category-item">
@@ -374,7 +746,60 @@
                                                             </div>
                                                         </div>
                                                     </div> <!-- end single item -->
-                                                </div> 
+                                                </div>
+
+                                                <!-- Quick view modal start -->
+                                                <div class="modal" id="quick_view">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- product details inner end -->
+                                                                <div class="product-details-inner">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <div class="product-large-slider slick-arrow-style_2 mb-20">
+                                                                                <div class="pro-large-img">
+                                                                                    <img src="{{ asset('public/uploads/'.$product->image) }}" alt="" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <div class="product-details-des mt-md-34 mt-sm-34">
+                                                                                <div class="availability mt-10">
+                                                                                    <h5>Availability:</h5>
+                                                                                    <span>{{$product->stock}} in stock</span>
+                                                                                </div>
+                                                                                <div class="pricebox">
+                                                                                    <span class="regular-price">#{{$product->price}}</span>
+                                                                                </div>
+                                                                                <div style="word-wrap: word-break">
+                                                                                    @php
+                                                                                        echo $product->description ;
+                                                                                    @endphp
+                                                                                </div>
+                                                                                
+                                                                                <div class="quantity-cart-box d-flex align-items-center mt-20">
+                                                                                    <div class="quantity">
+                                                                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                                                                    </div>
+                                                                                    <div class="action_link">
+                                                                                        <a class="buy-btn" href="{{route('add-to-cart')}}">add to cart<i class="fa fa-shopping-cart"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- product details inner end -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Quick view modal end --> 
                                             @endif
                                             
                                             <!-- end single item column -->

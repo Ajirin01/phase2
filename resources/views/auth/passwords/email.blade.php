@@ -1,45 +1,34 @@
-@extends('layouts.app')
+@extends('layouts.site_base')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
+<!-- login register wrapper start -->
+<div style="margin-top: 20px" class="login-register-wrapper">
+    <div class="container">
+        <div class="member-area-from-wrap">
+            <div class="row justify-content-center">
+                <!-- Login Content Start -->
+                <div class="col-lg-6">
+                    <div class="login-reg-form-wrap  pr-lg-50">
+                        <h2>{{ __('Reset Password') }}</h2>
+                        <form action="{{ route('password.email') }}" method="post">
+                            @csrf
+                            <div class="single-input-item">
+                                <input type="email" placeholder="Emai" required name="email"/>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                            <div class="single-input-item">
+                                <input class="sqr-btn" type="submit" value="Login" name="login">
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
+                                {{-- <button class="sqr-btn">Login</button> --}}
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+                <!-- Login Content End -->
             </div>
         </div>
     </div>

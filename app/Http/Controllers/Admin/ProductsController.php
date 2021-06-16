@@ -38,13 +38,17 @@ class ProductsController extends Controller
             'stock'=> 'required| integer',
             'shipping_price'=> 'required| integer',
         ];
+
+        $brand = Brand::where('name', $request->brand)->first();
+        $category = Category::where('name', $request->category)->first();
+
         $data = array();
         $data['name'] = $request->name;
         $data['price'] = $request->price;
         $data['description'] = $request->description;
         $data['sale_type'] = $request->sale_type;
-        $data['brand_id'] = $request->brand;
-        $data['category_id'] = $request->category;
+        $data['brand_id'] = $brand->id;
+        $data['category_id'] = $category->id;
         
         if($request->status == "on"){
             $data['status'] = "Active";
