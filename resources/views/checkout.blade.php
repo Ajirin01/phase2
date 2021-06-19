@@ -8,62 +8,69 @@
                     <!-- Checkout Login Coupon Accordion Start -->
                     <div class="checkoutaccordion" id="checkOutAccordion">
                         <div class="card">
-                            <h3>Returning Customer? <span data-toggle="collapse" data-target="#logInaccordion">Click Here To Login</span></h3>
-    
+                            <h3>Please Enter Your Shipping Address OR Select From List if Already Created<span data-toggle="collapse" data-target="#logInaccordion">Select Address</span></h3>
                             <div id="logInaccordion" class="collapse" data-parent="#checkOutAccordion">
                                 <div class="card-body">
-                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
+                                    <p>You Can Select Your Shipping Address from the Addresses Below</p>
                                     <div class="login-reg-form-wrap mt-20">
                                         <div class="row">
-                                            <div class="col-lg-7 m-auto">
-                                                <form action="#" method="post">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="single-input-item">
-                                                                <input type="email" placeholder="Enter your Email" required />
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="col-md-12">
-                                                            <div class="single-input-item">
-                                                                <input type="password" placeholder="Enter your Password" required />
-                                                            </div>
+                                            <!-- Order Summary Details -->
+                                            <div class="col-lg-12">
+                                                <div class="order-summary-details mt-md-26 mt-sm-26">
+                                                    <h2>Your Added Addresses</h2>
+                                                    <div class="order-summary-content mb-sm-4">
+                                                        <!-- Order Summary Table -->
+                                                        <div class="order-summary-table table-responsive text-center">
+                                                            @foreach ($shipping as $address)
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <strong>Full Name: </strong>{{$address->first_name}} {{$address->last_name}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>Phone Number: </strong>{{$address->phone}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>Email Address: </strong>{{$address->email}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>Street Address: </strong>{{$address->street_address}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>State: </strong>{{$address->state}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>City: </strong>{{$address->city}}
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <strong>Postal Code: </strong>{{$address->postcode}}
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </td>
+                                                                            <td class="d-flex justify-content-center" style="border-bottom: none">
+                                                                                <ul class="">
+                                                                                    <li>
+                                                                                        <div class="custom-control custom-radio">
+                                                                                            <input type="radio" id="shipping-address{{$address->id}}" name="shipping_address" style="transform: scale(2)"
+                                                                                                onclick="setShippingID({{$address->id}})"
+                                                                                            />
+                                                                                            
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            @endforeach
+                                                            
                                                         </div>
                                                     </div>
-    
-                                                    <div class="single-input-item">
-                                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                                            <div class="remember-meta">
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="rememberMe" required />
-                                                                    <label class="custom-control-label" for="rememberMe">Remember Me</label>
-                                                                </div>
-                                                            </div>
-    
-                                                            <a href="#" class="forget-pwd">Forget Password?</a>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="single-input-item">
-                                                        <button class="check-btn sqr-btn">Login</button>
-                                                    </div>
-                                                </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="card">
-                            <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion">
-                                <div class="card-body">
-                                    <div class="cart-update-option">
-                                        <div class="apply-coupon-wrapper">
-                                            <form action="#" method="post" class=" d-block d-md-flex">
-                                                <input type="text" placeholder="Enter Your Coupon Code" required />
-                                                <button class="check-btn sqr-btn">Apply Coupon</button>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -80,71 +87,72 @@
                     <div class="checkout-billing-details-wrap">
                         <h2>Billing Details</h2>
                         <div class="billing-form-wrap">
-                            <form action="#">
+                            <form action="{{ route('checkout-handler') }}" method="POST" id="shipping">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="single-input-item">
                                             <label for="f_name" class="required">First Name</label>
-                                            <input type="text" id="f_name" placeholder="First Name" required />
+                                            <input type="text" id="f_name" placeholder="First Name" name="first_name" />
                                         </div>
                                     </div>
     
                                     <div class="col-md-6">
                                         <div class="single-input-item">
                                             <label for="l_name" class="required">Last Name</label>
-                                            <input type="text" id="l_name" placeholder="Last Name" required />
+                                            <input type="text" id="l_name" placeholder="Last Name" name="last_name" />
                                         </div>
                                     </div>
                                 </div>
     
                                 <div class="single-input-item">
                                     <label for="email" class="required">Email Address</label>
-                                    <input type="email" id="email" placeholder="Email Address" required />
+                                    <input type="email" id="email" placeholder="Email Address" name="email" value="{{Auth::user()->email}}"  readonly/>
                                 </div>
     
                                 <div class="single-input-item">
                                     <label for="street-address" class="required pt-20">Street address</label>
-                                    <input type="text" id="street-address" placeholder="Street address Line 1" required />
+                                    <input type="text" id="street-address" placeholder="Street address Line 1" name="street_address" />
                                 </div>
-    
-                                <div class="single-input-item">
-                                    <input type="text"  placeholder="Street address Line 2 (Optional)" />
-                                </div>
-    
                                 <div class="single-input-item">
                                     <label for="town" class="required">Town / City</label>
-                                    <input type="text" id="town"  placeholder="Town / City" required />
+                                    <input type="text" id="town"  placeholder="Town / City" name="city" />
                                 </div>
     
                                 <div class="single-input-item">
                                     <label for="state">State / Divition</label>
-                                    <input type="text" id="state"  placeholder="State / Divition" />
+                                    <input type="text" id="state"  placeholder="State / Divition" name="state"/>
                                 </div>
     
                                 <div class="single-input-item">
                                     <label for="postcode" class="required">Postcode / ZIP</label>
-                                    <input type="text" id="postcode"  placeholder="Postcode / ZIP" required />
+                                    <input type="text" id="postcode"  placeholder="Postcode / ZIP" name="postcode" />
                                 </div>
     
                                 <div class="single-input-item">
                                     <label for="phone">Phone</label>
-                                    <input type="text" id="phone"  placeholder="Phone" />
+                                    <input type="text" id="phone"  placeholder="Phone" name="phone"/>
                                 </div>
     
                                 <div class="checkout-box-wrap">
                                     <div class="single-input-item">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="create_pwd">
-                                            <label class="custom-control-label" for="create_pwd">Create an account?</label>
+                                            {{-- <label class="custom-control-label" for="create_pwd">Create an account?</label> --}}
                                         </div>
                                     </div>
                                     <div class="account-create single-form-row">
-                                        <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                                        {{-- <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p> --}}
                                         <div class="single-input-item">
-                                            <label for="pwd" class="required">Account Password</label>
-                                            <input type="password" id="pwd"  placeholder="Account Password" required />
+                                            {{-- <label for="pwd" class="required">Account Password</label> --}}
+                                            {{-- <input type="password" id="pwd"  placeholder="Account Password" required name="" /> --}}
                                         </div>
                                     </div>
+
+                                    <input type="hidden" name="cart" value="{{json_encode($cart)}}">
+                                    <input type="hidden" name="total_with_shipping" value="2000">
+                                    <input id="shipping-id" type="hidden" name="shipping_id">
+                                    <input id="payment-method" type="hidden" name="payment_method">
                                 </div>
                             </form>
                         </div>
@@ -166,23 +174,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="single-product.html">Suscipit Vestibulum <strong> × 1</strong></a></td>
-                                            <td>$165.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="single-product.html">Ami Vestibulum suscipit <strong> × 4</strong></a></td>
-                                            <td>$165.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="single-product.html">Vestibulum suscipit <strong> × 2</strong></a></td>
-                                            <td>$165.00</td>
-                                        </tr>
+                                        @php
+                                            $subtotal = 0;
+                                        @endphp
+                                        @foreach ($cart as $item)
+                                            @php
+                                                $product = App\Product::find($item->product_id);
+                                                
+                                                // return response()->json($cart);
+                                                // $product = json_decode($product);
+                                                $subtotal += $item->product_quantity * $item->product_price;
+                                            @endphp
+                                            <tr>
+                                                <td><a href="single-product.html">{{$product->name}}({{$item->shopping_type}})<strong> × {{$item->product_quantity}}</strong></a></td>
+                                                <td># {{$item->product_quantity * $item->product_price}}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td><strong>$400</strong></td>
+                                            <td><strong># {{$subtotal}}</strong></td>
                                         </tr>
                                         <tr>
                                             <td>Shipping</td>
@@ -191,13 +203,13 @@
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="flatrate" name="shipping" class="custom-control-input" checked />
-                                                            <label class="custom-control-label" for="flatrate">Flat Rate: $70.00</label>
+                                                            <label class="custom-control-label" for="flatrate">Flat Rate: # 70.00</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="freeshipping" name="shipping" class="custom-control-input" />
-                                                            <label class="custom-control-label" for="freeshipping">Free Shipping</label>
+                                                            <label class="custom-control-label" for="freeshipping">Within Edo: Free Shipping</label>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -205,7 +217,7 @@
                                         </tr>
                                         <tr>
                                             <td>Total Amount</td>
-                                            <td><strong>$470</strong></td>
+                                            <td><strong># Total</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -236,11 +248,16 @@
                                 </div>
                                 <div class="summary-footer-area">
                                     <div class="custom-control custom-checkbox mb-14">
-                                        <input type="checkbox" class="custom-control-input" id="terms" required />
+                                        <input type="checkbox" class="custom-control-input" id="terms" required name="" />
                                         <label class="custom-control-label" for="terms">I have read and agree to the website <a
-                                            href="index.html">terms and conditions.</a></label>
+                                            href="">terms and conditions.</a></label>
                                     </div>
-                                    <button type="submit" class="check-btn sqr-btn">Place Order</button>
+                                    <button type="submit" class="check-btn sqr-btn"
+                                        onclick="
+                                            event.preventDefault();
+                                            document.getElementById('shipping').submit();
+                                        "
+                                    >Place Order</button>
                                 </div>
                             </div>
                         </div>
@@ -250,4 +267,25 @@
         </div>
     </div>
     <!-- checkout main wrapper end -->
+    <script>
+        var shipping_id = document.getElementById('shipping-id')
+        var cashon = document.getElementById('cashon')
+        var card = document.getElementById('paypalpayment')
+        var payment_method = document.getElementById('payment-method')
+
+        payment_method.value = "pay on delivery"
+
+        cashon.onclick = () =>{
+            payment_method.value = "pay on delivery"
+        }
+        card.onclick = () =>{
+            payment_method.value = "card"
+        }
+
+        function setShippingID(id){
+            // var new_shipping_id = document.getElementById('shipping-id'+id)
+            shipping_id.value = id
+            console.log(shipping_id)
+        }
+    </script>
 @endsection

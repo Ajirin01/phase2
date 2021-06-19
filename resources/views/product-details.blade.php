@@ -35,22 +35,22 @@
                                             <div class="quantity">
                                                 <div class="pro-qty">
                                                     <input type="text" value="1" name="product_quantity">
-                                                    <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                    <input type="hidden" value="{{$product->wholesale_price}}" name="product_price">
                                                 </div>
+                                                <input type="hidden" value="{{$product->id}}" name="product_id">
+                                                <input type="hidden" value="{{$product->wholesale_price}}" name="product_price">
+                                                <input type="hidden" name="shopping_type" value="{{Session::get('shopping_type')}}">
+
                                             </div>
                                             <div class="action_link">
-                                                {{-- <button style="background-color: #d8373e; color: white; font-weight: 600" class="buy-btn">add to cart <i class="fa fa-shopping-cart"></i></button> --}}
                                                 <a class="buy-btn" href="{{ route('add-to-cart') }}" 
                                                     onclick="
                                                     event.preventDefault();
                                                     document.getElementById({{$product->id}}).submit()
                                                     "
                                                 >add to cart<i class="fa fa-shopping-cart"></i></a>
-
-                                                
                                             </div>
                                         </form>
+                                    </div>
                                         
                                     </div>
                                 </div>
@@ -169,9 +169,10 @@
                                             <div class="quantity">
                                                 <div class="pro-qty">
                                                     <input type="text" value="1" name="product_quantity">
-                                                    <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                    <input type="hidden" value="{{$product->price}}" name="product_price">
                                                 </div>
+                                                <input type="hidden" value="{{$product->id}}" name="product_id">
+                                                <input type="hidden" value="{{$product->price}}" name="product_price">
+                                                <input type="hidden" name="shopping_type" value="{{Session::get('shopping_type')}}">
                                             </div>
                                             <div class="action_link">
                                                 <a class="buy-btn" href="{{ route('add-to-cart') }}" 

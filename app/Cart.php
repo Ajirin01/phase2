@@ -10,7 +10,8 @@ class Cart extends Model
         'product_id',
         'user_id',
         'product_price',
-        'product_quantity'
+        'product_quantity',
+        'shopping_type'
     ];
 
     public function user(){

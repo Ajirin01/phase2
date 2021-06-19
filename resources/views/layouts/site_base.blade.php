@@ -1,7 +1,27 @@
 @php
     $categories = App\Category::where('status','Active')->get();
     $brands = App\Brand::where('status','Active')->get();
-    $cart = App\Cart::where('user_id', '1')->get();
+
+    if(Auth::check()){
+        if(Session::get('shopping_type') == 'wholesale'){
+            $cart = App\Cart::where('shopping_type','wholesale')->where('user_id', Auth::user()->id)->get();
+        }else{
+            $cart = App\Cart::where('shopping_type', 'retail')->where('user_id', Auth::user()->id)->get();
+        }
+    }else{
+        $cart = [];
+    }
+    
+
+    // $cart = App\Cart::where('user_id', '1')->get();
+    $subtotal = 0;
+
+    if(Auth::check()){
+        for($i=0; $i< count($cart); $i++){
+            $subtotal += $cart[$i]->product_price * $cart[$i]->product_quantity;
+        }
+    }
+    
 @endphp
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -197,48 +217,49 @@
                                 </div>
                                 <div class="header-middle-block">
                                     <div class="header-middle-searchbox">
-                                        <input type="text" placeholder="Search...">
-                                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                                        <form action="{{ route('search-results') }}" method="GET">
+                                            @csrf
+                                            <input name="search_query" type="text" placeholder="Search...">
+                                            <button class="search-btn"><i class="fa fa-search"></i></button>
+                                        </form>
                                     </div>
                                     <div class="header-mini-cart">
                                         <div class="mini-cart-btn">
                                             <i class="fa fa-shopping-cart"></i>
-                                            <span class="cart-notification">2</span>
+                                            @auth
+                                                <span class="cart-notification">{{$cart->count()}}</span>
+                                            @endauth
+                                            @guest
+                                                <span class="cart-notification">0</span>
+                                            @endguest
                                         </div>
                                         <div class="cart-total-price">
                                             <span>total</span>
-                                            #50.00
+                                            #{{$subtotal}}.00
                                         </div>
                                         <ul class="cart-list">
-                                            <li>
-                                                <div class="cart-img">
-                                                    <a href="product-details.html"><img src="{{ asset('site/assets/img/cart/cart-1.jpg') }}"
-                                                            alt=""></a>
-                                                </div>
-                                                <div class="cart-info">
-                                                    <h4><a href="product-details.html">simple product 09</a></h4>
-                                                    <span>#60.00</span>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cart-img">
-                                                    <a href="product-details.html"><img src="{{ asset('site/assets/img/cart/cart-2.jpg') }}"
-                                                            alt=""></a>
-                                                </div>
-                                                <div class="cart-info">
-                                                    <h4><a href="product-details.html">virtual product 10</a></h4>
-                                                    <span>#50.00</span>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </li>
+                                            @foreach ($cart as $item)
+                                            @php
+                                                $product = App\Product::find($item->product_id);
+                                            @endphp
+                                                <li>
+                                                    <div class="cart-img">
+                                                        <a href="{{ route('product-details', $product->id) }}"><img src="{{ asset('public/uploads/'.$product->image) }}"
+                                                                alt=""></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="{{ route('product-details', $product->id) }}">{{$product->name}} x{{$item->product_quantity}}</a></h4>
+                                                        <span>#{{$product->price*$item->product_quantity}}</span>
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <a href="{{ route('delete_cart_item', $item->id) }}"><i class="fa fa-times"></i></a>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                            
                                             <li class="mini-cart-price">
                                                 <span class="subtotal">subtotal : </span>
-                                                <span class="subtotal-price">#88.66</span>
+                                                <span class="subtotal-price">#{{$subtotal}}.00</span>
                                             </li>
                                             <li class="checkout-btn">
                                                 <a href="{{route('cart')}}">checkout</a>
@@ -285,12 +306,13 @@
                                             </li>
                                             <li><a href="{{ route('contact-us') }}">Contact us</a></li>
                                             <li>
-                                                <form id="mc-form" action="{{ route('shopping-setting') }}" method="post" id="shopping-form">
+                                                <form  action="{{ route('shopping-setting') }}" method="post" id="shopping-form">
                                                     @csrf
                                                     <select name="shopping_type" id="shopping-type">
                                                         <option value="retail">Retail</option>
                                                         <option value="wholesale">Wholesale</option>
-                                                    </select><button style="background-color: #d8373e; color: white; font-weight: 600" class="btn" id="mc-submit">set</button>
+                                                    </select>
+                                                    <button style="background-color: #d8373e; color: white; font-weight: 600" class="btn" id="mc-submit">set</button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -369,13 +391,13 @@
                             </div>
                             <div class="newsletter__box">
                                 @if (Session::get('shopping_type') == "wholesale")
-                                    <form action="{{ route('shopping-setting') }}" id="mc-form" method="POST">
+                                    <form action="{{ route('shopping-setting') }}" method="POST">
                                         @csrf
                                         <input name="shopping_type" value="retail" style="opacity: 0" type="text" id="mc-email" autocomplete="off" placeholder="wholesale">
                                         <button class="btn" id="mc-submit">shop now!</button>
                                     </form>
                                 @else
-                                    <form action="{{ route('shopping-setting') }}" id="mc-form" method="POST">
+                                    <form action="{{ route('shopping-setting') }}" method="POST">
                                         @csrf
                                         <input name="shopping_type" value="wholesale" style="opacity: 0" type="text" id="mc-email" autocomplete="off" placeholder="wholesale">
                                         <button class="btn" id="mc-submit">shop now!</button>
@@ -480,7 +502,7 @@
                 <div class="container">
                     <div class="footer-bottom-wrap">
                         <div class="copyright-text">
-                            <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+                            <p><a target="_blank" href="https://www.digirealm.com.ng">Digi-Realm</a></p>
                         </div>
                         <div class="payment-method-img">
                             <img src="{{ asset('site/assets/img/payment.png') }}" alt="">

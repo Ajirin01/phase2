@@ -19,31 +19,37 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <form action="{{ route('update-cart') }}" method="post">
+                                <form id="update-cart" action="{{ route('update-cart') }}" method="post">
+                                    @csrf
                                     @foreach ($carts as $cart)
                                         <tr>
                                             @php
                                                 $product = App\Product::find($cart->product_id);
+                                                
                                                 // return response()->json($cart);
+                                                // $product = json_decode($product);
                                             @endphp
-                                            <td class="pro-thumbnail"><a href="{{ route('product-details', $product->id) }}"><img class="img-fluid" src="{{asset('public/uploads/'.$product->image)}}"
+                                            <td class="pro-thumbnail"><a href="{{ route('product-details', $product->name) }}"><img class="img-fluid" src="{{asset('public/uploads/'.$product->image)}}"
                                                                                         alt="Product"/></a></td>
-                                            <td class="pro-title">{{$product->name}}<a href="{{ route('product-details', $product->id) }}">
+                                            <td class="pro-title">{{$product->name}}({{$cart->shopping_type}})<a href="{{ route('product-details', $product->name) }}">
                                                 
                                             </a></td>
                                             <td class="pro-price"><span>#{{$cart->product_price}}</span></td>
                                             <td class="pro-quantity">
-                                                <div class="pro-qty"><input id="product-quantity" type="text" value="{{$cart->product_quantity}}"></div>
+                                                <div class="pro-qty"><input name="product_quantity[]" id="product-quantity" type="text" value="{{$cart->product_quantity}}"></div>
                                             </td>
-
-                                            <span><input id="product-quantity-hidden{{$cart->product_id}}" type="hidden" name[]="product_quantity"
-                                                onchange="handleQuantityChange({{$cart->product_id}})"
-                                                >
-                                            <span><input type="hidden" value="{{$cart->product_id}}" name[]="product_id">
+                                            <input type="hidden" name="product_id[]" value="{{$cart->product_id}}">
+                                            <input type="hidden" name="shopping_type[]" value="{{$cart->shopping_type}}">
                                             
 
                                             <td class="pro-subtotal"><span>#{{$cart->product_quantity * $cart->product_price}}</span></td>
-                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="pro-remove"><a href="{{ route('delete_cart_item', $cart->id) }}"><i class="fa fa-trash-o"></i></a></td>
+                                            {{-- <td class="pro-remove">
+                                                <form action="{{ route('delete_cart_item', $cart->product_quantity) }}" method="POST">
+                                                    @csrf
+                                                <button style="background: transparent; border: none; cursor: pointer"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </form>
@@ -60,7 +66,11 @@
                             </form>
                         </div>
                         <div class="cart-update mt-sm-16">
-                            <a href="{{ route('update-cart') }}" class="sqr-btn">Update Cart</a>
+                            <a href="{{ route('update-cart') }}" class="sqr-btn"
+                                onclick="event.preventDefault()
+                                document.getElementById('update-cart').submit()
+                                "
+                            >Update Cart</a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +90,7 @@
                                             $subtotal = 0;
                                             $shipping = 0;
                                             for($i=0; $i< count($carts); $i++){
-                                                $subtotal = $carts[$i]->product_price * $carts[$i]->product_quantity;
+                                                $subtotal += $carts[$i]->product_price * $carts[$i]->product_quantity;
                                                 $shipping = $shipping + App\Product::find($carts[$i]->product_id)->shipping_cost;
                                             }
                                         @endphp
@@ -104,19 +114,5 @@
         </div>
     </div>
     <!-- cart main wrapper end -->
-
-    <script>
-        function handleQuantityChange(){
-            
-        }
-        var product_quantity = document.getElementById('product-quantity1')
-        var product_quantity_hidden = document.getElementById('product-quantity-hidden')
-
-        console.log(product_quantity)
-
-        product_quantity.onchange => () {
-            console.log('Product quantity changed')
-        }
-    </script>
 
 @endsection

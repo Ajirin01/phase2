@@ -5,95 +5,117 @@ namespace App\Http\Controllers\Admin\Pos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Sale;
+use App\Product;
 
 class SalesController extends Controller
 {
     function sale_number(){
 
-        $year        = date("Y");
+        $year          = date("Y");
         $month         = date("m");
-        $sales = Sale::count();
+        $sales         = Sale::count();
         $sale_number   = $year.$month."-".($sales+1);
 
         return $sale_number;
 
     }  
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return response()->json("all sales");
+        $sales = Sale::all();
+        // return response()->json($sales);
+        return view('Admin.Pos.sales_list',['sales' => $sales]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $data['sale_number']   = $this->sale_number();
-        return view('venta.pos.index_pos', compact('data'));
-
-        return response()->json("create new sale");
+        $sale_number = $this->sale_number();
+        $products = Product::all();
+        return view('Admin.Pos.add_product_to_sell',['products' => $products, 'sale_number'=> $sale_number]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         return response()->json($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $sale = Sale::find($id);
+
+        $sale_cart = json_decode($sale->cart);
+        // return response()->json($sale);
+
+        
+        return view('Admin.Pos.sale_details',['sale' => $sale, 'sale_cart'=> $sale_cart]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+    public function addProductsToSell(Request $request){
+        $added_product = $request->all();
+
+        // return response()->json($added_product);
+
+        $cart = array();
+        $total = 0;
+        
+        for($i=0; $i<count($added_product['product_name']); $i++){
+            array_push($cart,['product_id'=> $added_product['product_id'][$i],
+                        'product_name'=> $added_product['product_name'][$i],
+                        'product_price'=> $added_product['product_price'][$i],
+                        'product_quantity'=> $added_product['product_quantity'][$i]
+                        ]);
+
+            $total = $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
+        }
+        
+        return view('Admin.Pos.added_products',['products' => $cart, 'total'=> $total, 'sale_number'=> $this->sale_number()]);
+    }
+
+    public function updateCart(Request $request){
+        $added_product = $request->all();
+
+        // return response()->json($added_product);
+
+        $cart = array();
+        $total = 0;
+        
+        for($i=0; $i<count($added_product['product_name']); $i++){
+            array_push($cart,['product_id'=> $added_product['product_id'][$i],
+                        'product_name'=> $added_product['product_name'][$i],
+                        'product_price'=> $added_product['product_price'][$i],
+                        'product_quantity'=> $added_product['product_quantity'][$i]
+                        ]);
+
+            $total = $total + $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
+        }
+        
+        return view('Admin.Pos.added_products',['products' => $cart, 'total'=> $total, 'sale_number'=> $this->sale_number()]);
+    }
+
+    public function processSale(Request $request){
+        $data = $request->all();
+
+        $create_sale = Sale::create($data);
+
+        if($create_sale){
+            return redirect('retail/sales/create');
+        }else{
+            return redirect()->back();
+        }
     }
 }

@@ -33,7 +33,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ url('admin/dashboard') }}" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -50,7 +50,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ url('admin/dashboard') }}" class="brand-link">
       <img src="{{asset('admin/assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Phase 2</span>
@@ -62,7 +62,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="./index.html" class="nav-link active">
+            <a href="{{ url('admin/dashboard') }}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -94,7 +94,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-shopping-cart"></i>
+              <i class="nav-icon fa fa-list-alt"></i>
               <p>
                 Categories
                 <i class="fas fa-angle-left right"></i>
@@ -117,7 +117,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-shopping-cart"></i>
+              <i class="nav-icon fa fa-list-alt"></i>
               <p>
                 Brands
                 <i class="fas fa-angle-left right"></i>
@@ -148,25 +148,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link text-warning">
+                <a href="{{ route('orders_by_type', 'all') }}" class="nav-link text-primary">
+                  <i class="far fa-cart nav-icon"></i>
+                  <p>All Orders</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('orders_by_type', 'pending') }}" class="nav-link text-warning">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pending</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link text-danger">
+                <a href="{{ route('orders_by_type', 'cancelled') }}" class="nav-link text-danger">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cancelled</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link text-primary">
+                <a href="{{ route('orders_by_type', 'shipped') }}" class="nav-link text-primary">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Shipped</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link text-success">
+                <a href="{{ route('orders_by_type', 'completed') }}" class="nav-link text-success">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Completed</p>
                 </a>
@@ -175,7 +181,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-book"></i>
+              <i class="nav-icon fas fa-book"></i>
               <p>
                 Wholesale Record
                 <i class="fas fa-angle-left right"></i>
@@ -205,7 +211,7 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-book"></i>
+              <i class="nav-icon fa fa-cart-plus"></i>
               <p>
                 POS
                 <i class="fas fa-angle-left right"></i>
@@ -225,6 +231,23 @@
                 </a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-cog"></i>
+              <p>
+                Set Sale Mode
+              </p>
+            </a>
+            <form id="mc-form" action="{{ route('shopping-setting') }}" method="post" id="shopping-form">
+                @csrf
+                <select class="form-control" name="shopping_type" id="shopping-type">
+                    <option value="retail">Retail</option>
+                    <option value="wholesale">Wholesale</option>
+                </select>
+                <button class="form-control btn" style="background-color: #d8373e; color: white; font-weight: 600" class="btn" id="mc-submit">set</button>
+            </form>
           </li>
         </ul>
       </nav>

@@ -15,6 +15,10 @@ class CreateTempDataTable extends Migration
     {
         Schema::create('temp_data', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('total_price')->nullable();
+            $table->longText('cart')->nullable();
+            $table->integer('shipping_id')->nullable();
+            $table->string('user_email')->nullable();
             $table->timestamps();
         });
     }

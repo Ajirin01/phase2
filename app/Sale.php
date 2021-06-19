@@ -8,8 +8,9 @@ class Sale extends Model
 {
     protected $fillable = [
         'total',
-        'subtotal',
-        'products',
+        'cart',
+        'sale_number',
+        'payment_method',
         'status'
     ];
 }

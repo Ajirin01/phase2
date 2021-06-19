@@ -41,4 +41,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Cart');
     }
 
+    public function temporal() {
+
+        return $this->hasMany('App\Temporal');
+
+    }
+
 }
