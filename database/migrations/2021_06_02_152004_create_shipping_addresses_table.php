@@ -20,6 +20,7 @@ class CreateShippingAddressesTable extends Migration
             $table->string('email');
             $table->text('street_address');
             $table->string('city');
+            $table->string('company_name')->nullable();
             $table->string('state');
             $table->string('postcode');
             $table->string('phone');

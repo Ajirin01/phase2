@@ -434,13 +434,12 @@
                                     <h4>contact us</h4>
                                 </div>
                                 <div class="widget-body">
-                                    {{-- <ul class="location">
-                                        <li><i class="fa fa-envelope"></i>support@galio.com</li>
-                                        <li><i class="fa fa-phone"></i>(800) 0123 456 789</li>
-                                        <li><i class="fa fa-map-marker"></i>Address: 1234 - Bandit Tringi Aliquam
-                                            Vitae. New York</li>
-                                    </ul> --}}
-                                    <a class="map-btn" href="contact-us.html">open in google map</a>
+                                    <ul class="location">
+                                        <li><i class="fa fa-envelope"></i>support@phase2.com</li>
+                                        <li><i class="fa fa-phone"></i>phase2 pone number</li>
+                                        <li><i class="fa fa-map-marker"></i>location address</li>
+                                    </ul>
+                                    <a class="map-btn" href="{{ route('contact-us') }}">open in google map</a>
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->
@@ -450,13 +449,12 @@
                                     <h4>my account</h4>
                                 </div>
                                 <div class="widget-body">
-                                    {{-- <ul>
-                                        <li><a href="#">my account</a></li>
-                                        <li><a href="#">my cart</a></li>
-                                        <li><a href="#">checkout</a></li>
-                                        <li><a href="#">my wishlist</a></li>
-                                        <li><a href="#">login</a></li>
-                                    </ul> --}}
+                                    <ul>
+                                        <li><a href="{{ route('my-account') }}">my account</a></li>
+                                        <li><a href="{{ route('cart') }}">my cart</a></li>
+                                        <li><a href="{{ route('checkout') }}">checkout</a></li>
+                                        <li><a href="{{ route('register-login') }}">login</a></li>
+                                    </ul>
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->
@@ -466,13 +464,13 @@
                                     <h4>short code</h4>
                                 </div>
                                 <div class="widget-body">
-                                    {{-- <ul>
+                                    <ul>
                                         <li><a href="#">gallery</a></li>
                                         <li><a href="#">accordion</a></li>
                                         <li><a href="#">carousel</a></li>
                                         <li><a href="#">map</a></li>
                                         <li><a href="#">tab</a></li>
-                                    </ul> --}}
+                                    </ul>
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->
@@ -482,13 +480,13 @@
                                     <h4>product tags</h4>
                                 </div>
                                 <div class="widget-body">
-                                    {{-- <ul>
-                                        <li><a href="#">computer</a></li>
-                                        <li><a href="#">camera</a></li>
-                                        <li><a href="#">smart phone</a></li>
-                                        <li><a href="#">watch</a></li>
-                                        <li><a href="#">tablet</a></li>
-                                    </ul> --}}
+                                    <ul>
+                                        <li><a href="#">Suppliments</a></li>
+                                        <li><a href="#">Anti-Malaria</a></li>
+                                        <li><a href="#">Anti-Biotic</a></li>
+                                        <li><a href="#">Hospital</a></li>
+                                        <li><a href="#">Self Care</a></li>
+                                    </ul>
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->

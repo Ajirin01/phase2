@@ -13,6 +13,9 @@ use App\Cart as Cart;
 use App\ShippingAddress;
 use App\TempData;
 use App\Order;
+use	Illuminate\Support\Facades\Mail; 
+use App\Mail\contactUs;
+
 use Session;
 use Validator;
 
@@ -100,12 +103,6 @@ class SiteController extends Controller
     }
 
     public function cart(){
-        // if(Session::get('shopping_type' == 'wholesale')){
-
-        // }else{
-
-        // }
-
         if(Session::get('shopping_type') == 'wholesale'){
             $carts = Cart::where('shopping_type','wholesale')->where('user_id', Auth::user()->id)->get();
         }else{
@@ -145,12 +142,11 @@ class SiteController extends Controller
     }
 
     public function checkout(Request $request){
+        // return response()->json($request->all());
         $shipping = ShippingAddress::where('email',Auth::user()->email)->get();
-        if(Session::get('shopping_type') == 'wholesale'){
-            $carts = Cart::where('shopping_type','wholesale')->where('user_id', Auth::user()->id)->get();
-        }else{
-            $carts = Cart::where('shopping_type', 'retail')->where('user_id', Auth::user()->id)->get();
-        }
+        $carts = json_decode($request->cart);
+
+        // return response()->json($carts);
         return view('checkout',['cart'=> $carts, 'shipping'=>$shipping]);
         // return response()->json($request);
     }
@@ -170,7 +166,7 @@ class SiteController extends Controller
            
         }
         $data = [];
-        $data['total_price'] = $request->total_price;
+        $data['total_price'] = $request->total_with_shipping;
         $data['cart'] = $request->cart;
         $data['shipping_id'] = $shipping_id;
         $data['user_email'] = $request->email;
@@ -188,13 +184,21 @@ class SiteController extends Controller
                 $data['order_number'] = rand(123456789,999999999);
                 $data['user_email'] = $data['shipping_details']->email;
                 $data['cart'] = $request->cart;
-                $data['order_total'] = $request->total_price;
+                $data['order_total'] = $request->total_with_shipping;
                 $data['payment_method'] = $request->payment_method;
                 $data['status'] = "pay on delivery";
 
                 Order::create($data);
                 return response()->json("Order Placed!");
             }else{
+                if(env("DEBUG") == true){
+                    //test mode
+                    $url = "http://payment.phase2.com/?total_price=".$data['total_price']."&email=".$data['user_email'];
+                }else{
+                    //live server
+                    $url = "http://payment.phase2.com/?total_price=".$data['total_price']."&email=".$data['user_email'];
+                }
+                return redirect($url);
                 return response()->json("Address Added and online payment to be proccessed");
             }
             // return response()->json("Address Added");
@@ -205,7 +209,9 @@ class SiteController extends Controller
     }
 
     public function my_account(Request $request){
-        return view('my-account');
+        $orders = Order::where('user_email',Auth::user()->email)->get();
+        $shipping_addresses = ShippingAddress::where('email',Auth::user()->email)->get();
+        return view('my-account',['orders'=> $orders, 'shipping_addresses'=> $shipping_addresses]);
         // return response()->json($request);
     }
 
@@ -250,9 +256,10 @@ class SiteController extends Controller
             if($validate->fails()){
                 return response()->json($validate->errors());
             }else{
-                $user_exit = Auth::attempt(['email'=> $request->email, 'password'=> $request->password], $request->remember);
-                if($user_exit){
-                    return response()->json("user exit");
+                $user = User::where('email',$request->email)->orWhere('name',$request->name)->get();
+                    if($user != null){
+                    return redirect()->back()->with('error','Error! User Already Exit');
+                    // return response()->json("user exit");
                 }else{
                     $register_user = User::create([
                         'name' => $request->name,
@@ -286,5 +293,71 @@ class SiteController extends Controller
             ->orWhere('description','like','%'.$search_query.'%')->paginate(20);
         }
         return view('search_result',['products'=> $products]);
+    }
+
+    public function contactUs(){
+        return view('contact');
+    }
+
+    public function sendMessage(Request $request){
+        $message_body = "Phone Number: ".$request->phone. "<br>". "Message Body: ".$request->phone;
+        $data = array(
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $message_body
+        );
+        if(Mail::send(new ContactUs($request->all()))){
+            return redirect()->back()->with('msg','profile was successfully update!');
+        }else{
+            return redirect()->back()->with('error','ERROR! could not update profile!');
+        }
+    }
+
+    public function orderDetails($id){
+        $order = Order::find($id);
+        $cart = json_decode($order->cart);
+        return view('order-details',['order'=> $order, 'cart'=> $cart]);
+    }
+
+    public function editAddress($id){
+        $address = ShippingAddress::find($id);
+        return view('edit-address',['address'=> $address]);
+    }
+
+
+    public function handleEditAddress($id, Request $request){
+        $address = ShippingAddress::find($id);
+        $address->update($request->all());
+        
+        return redirect()->back()->with('msg', 'Address Changed!');
+    }
+
+    public function updateMyAccount(Request $request){
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;
+        $data = [];
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['password'] = Hash::make($new_password);
+
+        // return response()->json($data);
+
+        if(Auth::attempt(['email'=> $data['email'], 'password'=> $current_password])){
+            if($new_password == $confirm_password){
+                $user = User::where('email',$data['email'])->first();
+                $user->update($data);
+                if(Auth::attempt(['email'=> $data['email'], 'password'=> $new_password])){
+                    return redirect()->back()->with('msg', 'Success! Account Updated');
+                }else{
+                    return redirect()->back()->with('error', 'Error! Account Could not be Updated');
+                }
+                
+            }else{
+                return redirect()->back()->with('error', 'Error! New passwords not match');
+            }
+        }else{
+            return redirect()->back()->with('error', 'Error! Account Does not Exist');
+        }
     }
 }

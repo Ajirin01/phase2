@@ -6,20 +6,21 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="contact-message">
-                        <h2>tell us your project</h2>
-                        <form id="contact-form" action="http://demo.hasthemes.com/galio-v6/galio/assets/php/mail.php" method="post" class="contact-form">
+                        <h2>Make Enquiries</h2>
+                        <form id="contact-form" action="{{ route('sendMessage') }}" method="post" class="contact-form">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <input name="first_name" placeholder="Name *" type="text" required>    
+                                    <input name="name" placeholder="Name *" type="text" required>    
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <input name="phone" placeholder="Phone *" type="text" required>   
+                                    <input name="phone" placeholder="Phone " type="text">   
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <input name="email_address" placeholder="Email *" type="text" required>    
+                                    <input name="email" placeholder="Email *" type="text" required>    
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <input name="contact_subject" placeholder="Subject *" type="text">   
+                                    <input name="Subject" placeholder="Subject *" type="text" value="Enquiry">   
                                 </div>
                             <div class="col-12">
                                     <div class="contact2-textarea text-center">
@@ -42,8 +43,8 @@
                         <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
                         <ul>
                             <li><i class="fa fa-fax"></i> Address : No 40 Baria Sreet 133/2 NewYork City</li>
-                            <li><i class="fa fa-phone"></i> info@yourdomain.com</li>
-                            <li><i class="fa fa-envelope-o"></i> +88013245657</li>
+                            <li><i class="fa fa-envelope-o"></i> info@yourdomain.com</li>
+                            <li><i class="fa fa-phone"></i> phase2 phone number</li>
                         </ul>
                         <div class="working-time">
                             <h3>Working hours</h3>

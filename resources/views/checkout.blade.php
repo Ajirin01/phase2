@@ -92,6 +92,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="single-input-item">
+                                            <label for="f_name" class="required">Company Name (Required for Wholesales Shipping)</label>
+                                            <input type="text" id="f_name" placeholder="First Name" name="company_name" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="single-input-item">
                                             <label for="f_name" class="required">First Name</label>
                                             <input type="text" id="f_name" placeholder="First Name" name="first_name" />
                                         </div>
@@ -184,6 +191,11 @@
                                                 // return response()->json($cart);
                                                 // $product = json_decode($product);
                                                 $subtotal += $item->product_quantity * $item->product_price;
+
+                                                $shipping_cost = 0;
+                                                for($i=0; $i<count($cart); $i++){
+                                                    $shipping_cost += $cart[$i]->shipping_price;
+                                                }
                                             @endphp
                                             <tr>
                                                 <td><a href="single-product.html">{{$product->name}}({{$item->shopping_type}})<strong> × {{$item->product_quantity}}</strong></a></td>
@@ -203,7 +215,7 @@
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="flatrate" name="shipping" class="custom-control-input" checked />
-                                                            <label class="custom-control-label" for="flatrate">Flat Rate: # 70.00</label>
+                                                            <label class="custom-control-label" for="flatrate">Flat Rate: # {{$shipping_cost}}</label>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -217,7 +229,7 @@
                                         </tr>
                                         <tr>
                                             <td>Total Amount</td>
-                                            <td><strong># Total</strong></td>
+                                            <td><strong># {{$shipping_cost + $subtotal}}</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -243,15 +255,10 @@
                                         </div>
                                     </div>
                                     <div class="payment-method-details" data-method="paypal">
-                                        <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                        <p>Pay with Card; you can pay with your credit card.</p>
                                     </div>
                                 </div>
                                 <div class="summary-footer-area">
-                                    <div class="custom-control custom-checkbox mb-14">
-                                        <input type="checkbox" class="custom-control-input" id="terms" required name="" />
-                                        <label class="custom-control-label" for="terms">I have read and agree to the website <a
-                                            href="">terms and conditions.</a></label>
-                                    </div>
                                     <button type="submit" class="check-btn sqr-btn"
                                         onclick="
                                             event.preventDefault();

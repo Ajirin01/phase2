@@ -76,9 +76,27 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-6 order-2 order-md-3">
                       <div class="img-container img-full fix">
-                          <a href="#">
-                              <img src="{{ asset('site/assets/img/banner/banner_static_top3.jpg') }}" alt="">
-                          </a>
+                        @if (Session::get('shopping_type') == "wholesale")
+                            <form id="type-form" style="display: none" action="{{ route('shopping-setting') }}" method="POST">
+                                @csrf
+                                <input name="shopping_type" value="retail" style="opacity: 0" type="text" id="mc-email" autocomplete="off" placeholder="wholesale">
+                            </form>
+                            <a href="{{ route('shopping-setting') }}" onclick="event.preventDefault();
+                            document.getElementById('type-form').submit()
+                            ">
+                                <img src="{{ asset('site/assets/img/banner/banner_static_top3_2.jpg') }}" alt="">
+                            </a>
+                        @else
+                            <form id="type-form" style="display: none" action="{{ route('shopping-setting') }}" method="POST">
+                                @csrf
+                                <input name="shopping_type" value="wholesale" style="opacity: 0" type="text" id="mc-email" autocomplete="off" placeholder="wholesale">
+                            </form>
+                            <a href="{{ route('shopping-setting') }}" onclick="event.preventDefault();
+                            document.getElementById('type-form').submit()
+                            ">
+                                <img src="{{ asset('site/assets/img/banner/banner_static_top3.jpg') }}" alt="">
+                            </a>
+                        @endif
                       </div>
                   </div>
               </div>
@@ -477,6 +495,7 @@
                                       </a>
                                   </div>
                               </div>
+                              
                           </div>
                       </div>
                       <!-- banner statistic end -->

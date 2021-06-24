@@ -35,6 +35,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('admin/dashboard') }}" class="nav-link">Home</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ url('admin/dashboard') }}" class="nav-link">{{Auth::user()->role}}: {{Auth::user()->name}}</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -69,117 +72,150 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-shopping-cart"></i>
-              <p>
-                Products
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('products.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Products</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('products.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Product(s)</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p>
-                Categories
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('categories.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Categories</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('categories.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Categories</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p>
-                Brands
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('brands.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Brands</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('brands.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Brand</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Orders
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('orders_by_type', 'all') }}" class="nav-link text-primary">
-                  <i class="far fa-cart nav-icon"></i>
-                  <p>All Orders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('orders_by_type', 'pending') }}" class="nav-link text-warning">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pending</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('orders_by_type', 'cancelled') }}" class="nav-link text-danger">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cancelled</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('orders_by_type', 'shipped') }}" class="nav-link text-primary">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Shipped</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('orders_by_type', 'completed') }}" class="nav-link text-success">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Completed</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
+          @can('isProductManager')
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-shopping-cart"></i>
+                <p>
+                  Products
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('products.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>All Products</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('products.create')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Product(s)</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-list-alt"></i>
+                <p>
+                  Categories
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('categories.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>All Categories</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('categories.create')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Categories</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+  
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-list-alt"></i>
+                <p>
+                  Brands
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('brands.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>All Brands</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('brands.create')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Brand</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endcan
+
+          @can('isOrderManager')
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Orders
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('orders_by_type', 'all') }}" class="nav-link text-primary">
+                    <i class="far fa-cart nav-icon"></i>
+                    <p>All Orders</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('orders_by_type', 'pending') }}" class="nav-link text-warning">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pending</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('orders_by_type', 'cancelled') }}" class="nav-link text-danger">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Cancelled</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('orders_by_type', 'shipped') }}" class="nav-link text-primary">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Shipped</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('orders_by_type', 'completed') }}" class="nav-link text-success">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Completed</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endcan
+          
+          @can('isAdmin')
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-users"></i>
+                <p>
+                  Staff
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('users.index') }}" class="nav-link text-primary">
+                    <i class="far fa-cart nav-icon"></i>
+                    <p>All Staff</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('users.create') }}" class="nav-link text-warning">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Staff</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endcan
+
+          {{-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
@@ -207,30 +243,49 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> --}}
+          @can('isSaleRep')
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-cart-plus"></i>
+                <p>
+                  POS
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('sales.create') }}" class="nav-link text-warning">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>New Sale</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('sales.index') }}" class="nav-link text-success">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>All Sales</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endcan
+          
 
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cart-plus"></i>
-              <p>
-                POS
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('sales.create') }}" class="nav-link text-warning">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>New Sale</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('sales.index') }}" class="nav-link text-success">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Sales</p>
-                </a>
-              </li>
-            </ul>
+            <li class="nav-item">
+              <form id="logout" style="display: none" action="{{ route('admin-logout') }}" method="post">
+                @csrf
+              </form>
+              <a href="{{ route('admin-logout') }}" class="nav-link text-danger" 
+              onclick="
+              event.preventDefault();
+              document.getElementById('logout').submit()
+              "
+              >
+                <i class="fa fa-toggle-off nav-icon"></i>
+                <p>logout</p>
+              </a>
+            </li>
           </li>
 
           <li class="nav-item has-treeview">

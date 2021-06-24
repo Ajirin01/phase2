@@ -23,7 +23,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All {{$type}} Orders</h3>
+                <h3 class="card-title">All {{$type}} Orders </h3>
                 {{-- <a style="float: right" href="{{url('orders.create', $)}}"><h3 class="card-title">Add Product</h3></a> --}}
               </div>
               <!-- /.card-header -->

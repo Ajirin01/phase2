@@ -14,9 +14,6 @@
                                     <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
                                         Dashboard</a>
                                     <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-                                    <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
-                                    <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment
-                                        Method</a>
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
                                     <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
                                     <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
@@ -32,7 +29,7 @@
                                         <div class="myaccount-content">
                                             <h3>Dashboard</h3>
                                             <div class="welcome">
-                                                <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                                <p>Hello, <strong>{{Auth::user()->name}}</strong> (If Not <strong>{{Auth::user()->name}} !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
                                             </div>
                                             <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
                                         </div>
@@ -55,73 +52,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Pending</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>July 22, 2018</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>June 12, 2017</td>
-                                                            <td>On Hold</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                        </tr>
+                                                        @foreach ($orders as $order)
+                                                            <tr>
+                                                                <td>{{$order->id}}</td>
+                                                                <td>{{$order->created_at}}</td>
+                                                                <td>{{$order->status}}</td>
+                                                                <td>{{$order->order_total}}</td>
+                                                                <td><a href="{{ route('order-details', $order->id) }}" class="check-btn sqr-btn ">View</a></td>
+                                                            </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->
-    
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="download" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>Downloads</h3>
-                                            <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-light">
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th>Date</th>
-                                                        <th>Expire</th>
-                                                        <th>Download</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Haven - Free Real Estate PSD Template</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Yes</td>
-                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>HasTech - Profolio Business Template</td>
-                                                            <td>Sep 12, 2018</td>
-                                                            <td>Never</td>
-                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->
-    
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>Payment Method</h3>
-                                            <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -130,13 +72,18 @@
                                     <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Billing Address</h3>
-                                            <address>
-                                                <p><strong>Alex Tuntuni</strong></p>
-                                                <p>1355 Market St, Suite 900 <br>
-                                                    San Francisco, CA 94103</p>
-                                                <p>Mobile: (123) 456-7890</p>
-                                            </address>
-                                            <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> Edit Address</a>
+                                            @foreach ($shipping_addresses as $address)
+                                                <address>
+                                                    <p><strong>{{$address->first_name}} {{$address->first_name}}</strong></p>
+                                                    <p>{{$address->street_address}} <br>
+                                                        {{$address->city}} {{$address->state}}
+                                                    </p>
+                                                    <p>Mobile: {{$address->phone}}</p>
+                                                </address>
+                                            <a href="{{ route('edit-address', $address->id) }}" class="check-btn sqr-btn "><i class="fa fa-edit"></i> Edit Address</a>
+
+                                            @endforeach
+                                            
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -146,46 +93,37 @@
                                         <div class="myaccount-content">
                                             <h3>Account Details</h3>
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form action="{{ route('update-my-account') }}" method="POST">
+                                                    @csrf
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <label for="first-name" class="required">First Name</label>
-                                                                <input type="text" id="first-name" placeholder="First Name" />
+                                                                <label for="name" class="required">Full Name</label>
+                                                                <input type="text" id="name" placeholder="Full Name" name="name" value="{{Auth::user()->name}}"/>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="single-input-item">
-                                                                <label for="last-name" class="required">Last Name</label>
-                                                                <input type="text" id="last-name" placeholder="Last Name" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="display-name" class="required">Display Name</label>
-                                                        <input type="text" id="display-name" placeholder="Display Name" />
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">Email Addres</label>
-                                                        <input type="email" id="email" placeholder="Email Address" />
+                                                        <input type="email" id="email" placeholder="Email Address" name="email" value="{{Auth::user()->email}}"/>
                                                     </div>
                                                     <fieldset>
                                                         <legend>Password change</legend>
                                                         <div class="single-input-item">
                                                             <label for="current-pwd" class="required">Current Password</label>
-                                                            <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                            <input type="password" id="current-pwd" placeholder="Current Password" name="current_password" required/>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
                                                                     <label for="new-pwd" class="required">New Password</label>
-                                                                    <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                    <input type="password" id="new-pwd" placeholder="New Password" name="new_password" required/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
                                                                     <label for="confirm-pwd" class="required">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password" name="confirm_password" required/>
                                                                 </div>
                                                             </div>
                                                         </div>
