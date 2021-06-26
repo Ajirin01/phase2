@@ -18,7 +18,7 @@ class OrderAuth
     {
         if(Auth::check()){
             if($request->user()->role == 'admin'||  
-                $request->user()->role == 'order manager' ||){
+                $request->user()->role == 'order manager'){
                 return $next($request);
             }else{
                 return redirect()->route('admin-login');

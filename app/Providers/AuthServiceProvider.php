@@ -32,15 +32,17 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         $gate->define('isSaleRep', function($user){
-            return $user->role == 'retail rep' || 'wholesale rep';
+            return $user->role == 'retail rep' ||
+                    $user->role == 'wholesale rep' ||
+                    $user->role == 'admin';
         });
 
         $gate->define('isOrderManager', function($user){
-            return $user->role == 'order manager';
+            return $user->role == 'order manager' || $user->role == 'admin';
         });
 
         $gate->define('isProductManager', function($user){
-            return $user->role == 'product manager';
+            return $user->role == 'product manager' || $user->role == 'admin';
         });
     }
 }

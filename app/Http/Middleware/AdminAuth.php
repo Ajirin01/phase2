@@ -17,7 +17,11 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            if($request->user()->role == 'admin'){
+            if($request->user()->role == 'admin'|| 
+            $request->user()->role == 'order manager'|| 
+            $request->user()->role == 'product manager'|| 
+            $request->user()->role == 'retailsale rep'|| 
+            $request->user()->role == 'wholesale rep'){
                 return $next($request);
             }else{
                 return redirect()->route('admin-login');

@@ -45,8 +45,8 @@ class UsersController extends Controller
             }
             
         }
-        return response()->json($request->all());
-        User::create($request->all());
+        // return response()->json($request->all());
+        // User::create($request->all());
     }
 
     public function show($id)
@@ -81,6 +81,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return redirect()->back()->with('msg', 'Staff Record Deleted');
     }
 }

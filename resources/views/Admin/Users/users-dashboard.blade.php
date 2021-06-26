@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Staff</h3>
-                <a style="float: right" href="{{route('products.create')}}"><h3 class="card-title">Add Product</h3></a>
+                <a style="float: right" href="{{route('users.create')}}"><h3 class="card-title">Add staff</h3></a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
