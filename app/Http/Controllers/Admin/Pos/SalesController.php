@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin\Pos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Sale;
 use App\Product;
+use Session;
 
 class SalesController extends Controller
 {
@@ -109,10 +111,28 @@ class SalesController extends Controller
 
     public function processSale(Request $request){
         $data = $request->all();
-
+        // return response()->json(json_decode($request->cart));
         $create_sale = Sale::create($data);
 
         if($create_sale){
+            foreach (json_decode($request->cart) as $cart) {
+                if(Session::get('shopping_type') == 'wholesale'){ 
+                    $product = Product::find($cart->product_id);
+    
+                    $initial_stock = $product->wholesale_stock;
+                    $new_stock = $initial_stock - $cart->product_quantity;
+                    
+                    $product->update(['wholesale_stock'=> $new_stock]);
+                }else{
+                    $product = Product::find($cart->product_id);
+    
+                    $initial_stock = $product->stock;
+                    $new_stock = $initial_stock - $cart->product_quantity;
+                    
+                    $product->update(['stock'=> $new_stock]);
+
+                }
+            }
             return redirect('retail/sales/create');
         }else{
             return redirect()->back();

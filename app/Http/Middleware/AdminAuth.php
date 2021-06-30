@@ -20,7 +20,7 @@ class AdminAuth
             if($request->user()->role == 'admin'|| 
             $request->user()->role == 'order manager'|| 
             $request->user()->role == 'product manager'|| 
-            $request->user()->role == 'retailsale rep'|| 
+            $request->user()->role == 'retail rep'|| 
             $request->user()->role == 'wholesale rep'){
                 return $next($request);
             }else{
