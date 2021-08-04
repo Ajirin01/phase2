@@ -133,7 +133,8 @@ class SalesController extends Controller
 
                 }
             }
-            return redirect('retail/sales/create');
+            return view('Admin.Pos.receipt', ['sale'=> $data]);
+            // return redirect('retail/sales/create');
         }else{
             return redirect()->back();
         }

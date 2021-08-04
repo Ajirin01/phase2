@@ -68,7 +68,7 @@ Route::prefix('admin')->group(function () {
 }); 
 
 Route::prefix('retail')->group(function () {
-    Route::get('sale', 'Admin\DashboardController@dashboard')->middleware('sale');
+    Route::get('sale', 'Admin\DashboardController@dashboard')->name('sale')->middleware('sale');
     Route::post('add_products', 'Admin\Pos\SalesController@addProductsToSell')->name('add_product_to_sell')->middleware('sale');
     Route::post('update_cart', 'Admin\Pos\SalesController@updateCart')->name('update_cart')->middleware('sale');
     Route::post('process_sale', 'Admin\Pos\SalesController@processSale')->name('process_sale')->middleware('sale');
