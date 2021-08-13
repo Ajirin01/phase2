@@ -39,32 +39,32 @@ class ProductsController extends Controller
             'shipping_price'=> 'required| integer',
         ];
 
-        $brand = Brand::where('name', $request->brand)->first();
-        $category = Category::where('name', $request->category)->first();
+        // $brand = Brand::where('name', $request->brand)->first();
+        // $category = Category::where('name', $request->category)->first();
 
-        $data = array();
-        $data['name'] = $request->name;
-        $data['price'] = $request->price;
-        $data['description'] = $request->description;
-        $data['sale_type'] = $request->sale_type;
-        $data['brand_id'] = $brand->id;
-        $data['category_id'] = $category->id;
+        // $data = array();
+        // $data['name'] = $request->name;
+        // $data['price'] = $request->price;
+        // $data['description'] = $request->description;
+        // $data['sale_type'] = $request->sale_type;
+        // $data['brand_id'] = $brand->id;
+        // $data['category_id'] = $category->id;
         
-        if($request->status == "on"){
-            $data['status'] = "Active";
-        }else{
-            $data['status'] = "Inactive";
-        }
-        $data['size'] = $request->size." ".$request->retail_quantity;
-        $data['prescription'] = $request->prescription;
-        if($request->wholesale == "on"){
-            $data['wholesale'] = $request->wholesale;
-            $data['wholesale_size'] = $request->wholesale_size." ".$request->wholesale_quantity;
-            $data['wholesale_price'] = $request->wholesale_price;
-            $data['wholesale_stock'] = $request->wholesale_stock." ".$request->wholesale_stock_quantity;
-        }
-        $data['stock'] = $request->stock;
-        $data['shipping_cost'] = $request->shipping_price;
+        // if($request->status == "on"){
+        //     $data['status'] = "Active";
+        // }else{
+        //     $data['status'] = "Inactive";
+        // }
+        // $data['size'] = $request->size." ".$request->retail_quantity;
+        // $data['prescription'] = $request->prescription;
+        // if($request->wholesale == "on"){
+        //     $data['wholesale'] = $request->wholesale;
+        //     $data['wholesale_size'] = $request->wholesale_size." ".$request->wholesale_quantity;
+        //     $data['wholesale_price'] = $request->wholesale_price;
+        //     $data['wholesale_stock'] = $request->wholesale_stock." ".$request->wholesale_stock_quantity;
+        // }
+        // $data['stock'] = $request->stock;
+        // $data['shipping_cost'] = $request->shipping_price;
 
         $valid = Validator::make($request->all(),$rule);
 
@@ -78,6 +78,32 @@ class ProductsController extends Controller
                 $image_name = rand(123456789,999999999).'.'.$image_exe;
                 $upload_path = public_path('uploads/');
                 
+                $brand = Brand::where('name', $request->brand)->first();
+                $category = Category::where('name', $request->category)->first();
+
+                $data = array();
+                $data['name'] = $request->name;
+                $data['price'] = $request->price;
+                $data['description'] = $request->description;
+                $data['sale_type'] = $request->sale_type;
+                $data['brand_id'] = $brand->id;
+                $data['category_id'] = $category->id;
+                
+                if($request->status == "on"){
+                    $data['status'] = "Active";
+                }else{
+                    $data['status'] = "Inactive";
+                }
+                $data['size'] = $request->size." ".$request->retail_quantity;
+                $data['prescription'] = $request->prescription;
+                if($request->wholesale == "on"){
+                    $data['wholesale'] = $request->wholesale;
+                    $data['wholesale_size'] = $request->wholesale_size." ".$request->wholesale_quantity;
+                    $data['wholesale_price'] = $request->wholesale_price;
+                    $data['wholesale_stock'] = $request->wholesale_stock." ".$request->wholesale_stock_quantity;
+                }
+                $data['stock'] = $request->stock;
+                $data['shipping_cost'] = $request->shipping_price;
                 $data['image'] = $image_name;
 
                 $create_product = Product::create($data);
