@@ -82,9 +82,10 @@ class SalesController extends Controller
                         'product_quantity'=> $added_product['product_quantity'][$i]
                         ]);
 
-            $total = $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
+            $total += $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
         }
         
+        // return response()->json($total);
         return view('Admin.Pos.added_products',['products' => $cart, 'total'=> $total, 'sale_number'=> $this->sale_number()]);
     }
 

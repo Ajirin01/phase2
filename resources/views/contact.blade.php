@@ -40,9 +40,15 @@
                 <div class="col-lg-6">
                     <div class="contact-info mt-md-28 mt-sm-28">
                         <h2>contact us</h2>
-                        <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
+                        <p>Phase Two pharmacy Limited was founded in 2013 in the city of Asaba, Minna and other parts of the country.<br><br>
+                            
+                            Phase Two Pharmacy exist to meet the pharmaceutical needs of individuals, families and other organizations. We have been at the forefront of innovative medicine deliveries to enhance the wellbeing of the health of Nigerians. <br><br>
+                            
+                            With our Pharmaceutical innovations you can now purchase drugs online and get the drugs delivered right at your domain. 
+                            
+                            When it comes to innovations in the pharmaceutical industry, we have no match.</p>
                         <ul>
-                            <li><i class="fa fa-fax"></i> Address : No 40 Baria Sreet 133/2 NewYork City</li>
+                            <li><i class="fa fa-fax"></i> Address : No. 224 Nnebisi Road, Asaba</li>
                             <li><i class="fa fa-envelope-o"></i> info@yourdomain.com</li>
                             <li><i class="fa fa-phone"></i> phase2 phone number</li>
                         </ul>

@@ -139,7 +139,6 @@
 </div>
     {{-- <script type='text/javascript' src="{{ asset('bootstrap.min.js') }}"></script> --}}
     <script type='text/javascript' src="{{ asset('admin/receipt/bootstrap.min.js') }}"></script>
-    <script type='text/javascript'></script>
     <script> 
             domtoimage.toJpeg(document.getElementById('printout'), { quality: 0.95 })
             .then(function (dataUrl) {
@@ -153,13 +152,16 @@
             display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
             //   var tableData = '<table border="1">'+document.getElementsByTagName('table')[0].innerHTML+'</table>';
             // var content_innerhtml = document.getElementById("printout").innerHTML;  
-            var document_print=window.open("","",display_setting);  
+            var document_print=window.open("","",display_setting); 
+            console.log(document_print);
             document_print.document.open();  
             document_print.document.write('<body style="font-family:verdana; font-size: 5pt; margin-top: 4cm; " onLoad="self.print();self.close();" >');  
             document_print.document.write(el);  
             document_print.document.write('</body></html>');  
+            console.log(document_print.document) 
             document_print.print();  
             document_print.document.close(); 
+            // document_print.close(); 
             });
             // var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
             // display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
@@ -172,7 +174,7 @@
             // document_print.document.write('</body></html>');  
             // document_print.print();  
             // document_print.document.close(); 
-        
+    
             // return false;  
         // })
     </script>

@@ -4608,11 +4608,11 @@ body.modal-open {
 }
 
 .category-item .category-thumb {
-  -webkit-flex-basis: 90px;
-  -moz-flex-basis: 90px;
-  -ms-flex-basis: 90px;
-  -ms-flex-preferred-size: 90px;
-  flex-basis: 90px;
+  -webkit-flex-basis: 200px;
+  -moz-flex-basis: 200px;
+  -ms-flex-basis: 200px;
+  -ms-flex-preferred-size: 200px;
+  flex-basis: 200px;
   border: 1px solid #e5e5e5;
 }
 
