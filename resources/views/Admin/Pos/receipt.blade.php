@@ -2,36 +2,36 @@
     Use Carbon\Carbon;
 @endphp
 <!doctype html>
-                        <html>
-                            <head>
-                                <meta charset='utf-8'>
-                                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                <title>Phase2 Payment Receipt</title>
-                                {{-- <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>
-                                <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
-                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> --}}
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <title>Phase2 Payment Receipt</title>
+        {{-- <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>
+        <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> --}}
 
-                                <link href="{{ asset('admin/receipt/bootstrap.css') }}" rel='stylesheet'>
-                                <link href="{{ asset('admin/receipt/fonts/fontawesome-webfont3e6e.ttf') }}" rel='stylesheet'>
-                                {{-- <script type='query.js'></script> --}}
-                                <script src="{{ asset('admin/receipt/query.js') }}"></script>
-                                <script src="{{ asset('admin/receipt/dom-to-image.min.js') }}"></script>
+        <link href="{{ asset('admin/receipt/bootstrap.css') }}" rel='stylesheet'>
+        <link href="{{ asset('admin/receipt/fonts/fontawesome-webfont3e6e.ttf') }}" rel='stylesheet'>
+        {{-- <script type='query.js'></script> --}}
+        <script src="{{ asset('admin/receipt/query.js') }}"></script>
+        <script src="{{ asset('admin/receipt/dom-to-image.min.js') }}"></script>
 
-                                <style> .body-main {
-     background: #ffffff;
-     border-bottom: 15px solid #1E1F23;
-     border-top: 15px solid #1E1F23;
-     margin-top: 30px;
-     margin-bottom: 30px;
-     padding: 40px 30px !important;
-     position: relative;
-     box-shadow: 0 1px 21px #808080;
-     font-size: 10px;
-     background-image: url('{{ asset("admin/receipt/logo-trans.png") }}');
-     /*background-size: cover;*/
-     background-position: center;
-     background-repeat: no-repeat;
- }
+        <style> .body-main {
+            background: #ffffff;
+            border-bottom: 15px solid #1E1F23;
+            border-top: 15px solid #1E1F23;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 40px 30px !important;
+            position: relative;
+            box-shadow: 0 1px 21px #808080;
+            font-size: 10px;
+            background-image: url('{{ asset("admin/receipt/logo-trans.png") }}');
+            /*background-size: cover;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
  .main thead {
      background: #1E1F23;
@@ -146,21 +146,21 @@
             // link.download = 'my-image-name.jpeg';
             // link.href = dataUrl;
             // link.click();
-            console.log(el)
+            // console.log(el)
             
             var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
             display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
             //   var tableData = '<table border="1">'+document.getElementsByTagName('table')[0].innerHTML+'</table>';
             // var content_innerhtml = document.getElementById("printout").innerHTML;  
             var document_print=window.open("","",display_setting); 
-            console.log(document_print);
+            // console.log(document_print);
             document_print.document.open();  
-            document_print.document.write('<body style="font-family:verdana; font-size: 5pt; margin-top: 4cm; " onLoad="self.print();self.close();" >');  
+            document_print.document.write('<body style="font-family:verdana; font-size: 5pt; margin-top: 2cm; " onLoad="self.print(); self.close();" >');  
             document_print.document.write(el);  
             document_print.document.write('</body></html>');  
-            console.log(document_print.document) 
-            document_print.print();  
-            document_print.document.close(); 
+            // console.log(document_print.document.getElementsByTagName('img')[0].style.padding == "");
+            // document_print.print();  
+            document_print.document.close();
             // document_print.close(); 
             });
             // var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
