@@ -56,7 +56,7 @@
                             
                             </tr>
                             @endforeach
-                    <input class="btn btn-primary form-control" type="submit" value="Continue">
+                    <input id="continue-btn" class="btn btn-primary form-control" type="submit" value="Continue">
 
                         
                         </tbody>
@@ -85,6 +85,8 @@
     </section>
 
     <script>
+      var continue_btn= document.getElementById('continue-btn')
+      continue_btn.style.display = 'none'
     function checkall(selector,id) {
         console.log("add"+id)
         var check_item = document.getElementById('add'+id)
@@ -99,11 +101,13 @@
             product_price.name = "product_price[]"
             product_name.name = "product_name[]"
             product_quantity.name = "product_quantity[]"
+            continue_btn.style.display = 'block'
         } else {
             product_id.name = ""
             product_price.name = ""
             product_name.name = ""
             product_quantity.name = ""
+            continue_btn.style.display = 'none'
         }
 
     }

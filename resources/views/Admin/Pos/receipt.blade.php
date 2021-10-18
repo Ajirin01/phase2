@@ -63,8 +63,8 @@
                         <div class="col-md-4"> <img class="img" alt="Payment Receipt" src="{{ asset('admin/receipt/logo.png') }}" /> </div>
                         <div class="col-md-8 text-right">
                             <h4 style="color: #F81D2D;"><strong>Phase2</strong></h4>
-                            <p>phase2 address</p>
-                            <p>phase2 phone</p>
+                            <p>Mallam Habeeb Plaza,<br> Muaza Moh'd road<br> Opp. Old Secretariat<br> Along Old Airport road<br> Minna, Niger State</p>
+                            <p>08162519465</p>
                             <p>Support@Phase2.Com</p>
                         </div>
                     </div> <br />
@@ -125,6 +125,7 @@
                     <div>
                         <div class="col-md-12">
                             <p><b>Date :</b> {{Carbon::now()}}</p> <br />
+                            <p><b>Sale Rep :</b> {{$sale['sale_rep']}}</p> <br>
                             <p><b>Signature :</b> <img class="img" alt="Payment Receipt" src="{{ asset('admin/receipt/logo.png') }}" /></p>
                         </div>
                     </div>
@@ -134,7 +135,7 @@
     </div>
 
     <div class="page-header">
-        <a href="{{ route('sale') }}"><h1>Back to sale</h1></a>
+        <a href="{{ URL::to('/retail/sales/create') }}"><h1>Back to sale</h1></a>
     </div>
 </div>
     {{-- <script type='text/javascript' src="{{ asset('bootstrap.min.js') }}"></script> --}}

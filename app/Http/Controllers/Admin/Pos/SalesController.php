@@ -114,6 +114,7 @@ class SalesController extends Controller
         $data = $request->all();
         // return response()->json(json_decode($request->cart));
         $create_sale = Sale::create($data);
+        $data['sale_rep'] = Auth::user()->name;
 
         if($create_sale){
             foreach (json_decode($request->cart) as $cart) {
@@ -134,6 +135,7 @@ class SalesController extends Controller
 
                 }
             }
+            // return response()->json($data);
             return view('Admin.Pos.receipt', ['sale'=> $data]);
             // return redirect('retail/sales/create');
         }else{
