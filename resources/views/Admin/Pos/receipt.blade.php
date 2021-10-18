@@ -59,7 +59,7 @@
             <div class="col-md-6 col-md-offset-3 body-main">
                 <div class="col-md-12">
                     <div class="row">
-                        <!-- <div class="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png') }}" /> </div> -->
+                        <!-- <divclass="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png') }}" /> </div> -->
                         <div class="col-md-4"> <img class="img" alt="Payment Receipt" src="{{ asset('admin/receipt/logo.png') }}" /> </div>
                         <div class="col-md-8 text-right">
                             <h4 style="color: #F81D2D;"><strong>Phase2</strong></h4>
