@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label>Category</label>
                             <select name="category" class="form-control">
-                                <option value="">select category</option>
+                              <option value="{{ $category->id }}">{{$category->name}}</option>
                                 @foreach ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label>Brand</label>
                             <select name="brand" class="form-control">
-                                <option value="">select brand</option>
+                                <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{$brand->id}}">{{$brand->name}}</option>
                                 @endforeach
@@ -79,13 +79,13 @@
                   <div class="mb-3">
                       <div class="form-group">
                           <label>Product Name</label>
-                          <input type="text" class="form-control" name="name" placeholder="Enter Product Name">
+                          <input type="text" class="form-control" name="name" value="{{ $product->name }}" placeholder="Enter Product Name">
                       </div>
                   </div>
                   <div class="mb-3">
                       <div class="form-group">
                           <label>Product Price</label>
-                          <input type="text" class="form-control" name="price" placeholder="Enter Product Price">
+                          <input type="text" class="form-control" name="price" value="{{ $product->price }}" placeholder="Enter Product Price">
                       </div>
                   </div>
                   <div class="md-3">
@@ -100,7 +100,7 @@
                   <div class="mb-3">
                     <label>Product Size</label><br>
                       <div class="input-group">
-                          <input type="text" class="form-control" name="size" placeholder="Enter Product Size">
+                          <input type="text" class="form-control" value="{{ $product->size }}" name="size" placeholder="Enter Product Size">
                           <select name="retail_quantity" class="form-control">
                             <option value="Carton">Carton</option>
                             <option value="Schacet">Schacet</option>
@@ -140,18 +140,18 @@
                   <div class="mb-3">
                       <div class="form-group">
                           <label>Stock</label>
-                          <input type="text" class="form-control" name="stock" placeholder="Enter ...">
+                          <input type="text" class="form-control" name="stock" value="{{ $product->stock }}" placeholder="Enter ...">
                       </div>
                   </div>
                   <div class="mb-3">
                       <label>Prouduct Description</label>
                       <textarea name="description" class="textarea" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $product->description }}</textarea>
                   </div>
                   <div class="mb-3">
                       <div class="form-group">
                           <label>Shipping Price</label>
-                          <input type="text" class="form-control" name="shipping_price" placeholder="Enter ...">
+                        <input type="text" class="form-control" value="{{ $product->shipping_price }}" name="shipping_price" placeholder="Enter ...">
                       </div>
                   </div>
                   <div class="mb-3">

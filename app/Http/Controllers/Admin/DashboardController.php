@@ -18,6 +18,8 @@ class DashboardController extends Controller
         $shopping_type = Session::get('shopping_type');
         // echo $shopping_type == null;
         // exit;
+        $products = Product::all();
+
         if($shopping_type == null){
             Session::put('shopping_type','retail');
         }else {
@@ -29,7 +31,7 @@ class DashboardController extends Controller
         $orders = Order::all();
         // $products = Product::all();
         // $jan_sale = Sale::where();
-        $sales = Sale::all();
+        $sales = Sale::where('status', 'confirmed')->get();
         $month_sale = [];
         $months = [];
         $month_sale[0] = [];
@@ -60,13 +62,13 @@ class DashboardController extends Controller
 
         // return response()->json(array_values(array_unique($months)));
 
-        $products = [];
+        $sale_recap = [];
 
         for ($i=0; $i < 12; $i++) { 
             if (count($month_sale[$i]) == 0) {
                 ;
             }else{
-                array_push($products, ['name' => '', 'data'=> $month_sale[$i]]);
+                array_push($sale_recap, ['name' => '', 'data'=> $month_sale[$i]]);
             }
             
         }
@@ -91,13 +93,15 @@ class DashboardController extends Controller
         $carts = Cart::all();
         $users = User::where('role', 'user')->get();
         
-        // return response()->json($sales[0]->total);
+        // return response()->json($months_array);
 
         // return response()->json(Carbon::parse($sales[16]->created_at)->month);
         return view('Admin.dashboard',['latest_orders'=> $latest_orders,
                     'latest_products'=> $latest_products, 'products'=> $products,
                     'sales'=> $sales, 'total_orders'=> $orders,
-                    'users'=> $users, 'months'=> $months_array
+                    'users'=> $users, 'months'=> $months_array,
+                    'sales_total'=> $sales->sum('total'),
+                    'sale_recap'=> $sale_recap
                 ]);
     }
 }

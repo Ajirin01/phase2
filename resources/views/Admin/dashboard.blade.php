@@ -434,8 +434,15 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="text-center">
-                  <strong>Sales: {{ $months[0] }} - {{ $months[count($months)-1] }}</strong>
-                  {{-- <strong>Sales</strong> --}}
+                  @php
+                      try{
+                        echo "<strong>Sales: ".$months[0]."-".$months[count($months)-1]."</strong>";
+                      }catch(Exception $e){
+                        echo "<strong>Sales:   </strong>";
+                      }
+                  @endphp
+
+                  <strong>N {{ $sales_total }}.00</strong>
 
                 </p>
 
@@ -530,7 +537,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                  <input id="products" type="hidden" value="{{json_encode($products)}}">
+                  <input id="products" type="hidden" value="{{json_encode($sale_recap)}}">
                   <input id="months" type="hidden" value="{{json_encode($months)}}">
                   @foreach ($latest_orders as $order)
                     <tr>

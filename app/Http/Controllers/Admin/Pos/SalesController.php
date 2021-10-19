@@ -59,12 +59,33 @@ class SalesController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $status = $request->status;
+
+        $sale_to_update = Sale::find($id);
+
+        $update_sale = $sale_to_update->update(['status'=> $status]);
+
+        // $all_sales = Sale::all();
+
+        // return response()->json($all_sales->sum('total'));
+        if($update_sale){
+            return redirect()->back()->with('success', 'Sale successfully updated!');
+        }else {
+            return redirect()->back()->with('success', 'Sale could not successfully updated!');
+        }
     }
 
     public function destroy($id)
     {
-        //
+        // return response()->json($id);
+        $sale_to_delete = Sale::find($id);
+        $delete_sale = $sale_to_delete->delete();
+
+        if($delete_sale){
+            return redirect()->back()->with('success', 'Sale deleted');
+        }else {
+            return redirect()->back()->with('errors', 'Error! Sale could not be deleted');
+        }
     }
 
     public function addProductsToSell(Request $request){
@@ -112,6 +133,7 @@ class SalesController extends Controller
 
     public function processSale(Request $request){
         $data = $request->all();
+
         // return response()->json(json_decode($request->cart));
         $create_sale = Sale::create($data);
         $data['sale_rep'] = Auth::user()->name;
@@ -124,15 +146,14 @@ class SalesController extends Controller
                     $initial_stock = $product->wholesale_stock;
                     $new_stock = $initial_stock - $cart->product_quantity;
                     
-                    $product->update(['wholesale_stock'=> $new_stock]);
+                    $product->update(['wholesale_stock'=> $new_stock, 'status'=> 'confirmed']);
                 }else{
                     $product = Product::find($cart->product_id);
     
                     $initial_stock = $product->stock;
                     $new_stock = $initial_stock - $cart->product_quantity;
                     
-                    $product->update(['stock'=> $new_stock]);
-
+                    $product->update(['stock'=> $new_stock, 'status'=> 'confirmed']);
                 }
             }
             // return response()->json($data);

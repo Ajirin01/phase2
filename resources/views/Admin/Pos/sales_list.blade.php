@@ -47,8 +47,14 @@
                         <td>{{$sale->payment_method}}</td>
                         <td>{{$sale->status}}</td>
                         <td>
-                            <a class="btn" href="{{ route('sales.edit', $sale->id) }}">
-                                <i class="fas fa-edit text-warning"></i> Edit
+                            <form action="{{ route('sales.destroy', $sale->id) }}" method="POST" id="delete-form">
+                              @method('DELETE')
+                              @csrf
+                            </form>
+                            <a class="btn" href="{{ route('sales.destroy', $sale->id) }}"
+                              onclick="event.preventDefault(); document.getElementById('delete-form').submit()"
+                              >
+                                <i class="fas fa-edit text-danger"></i> delete
                             </a>
                             <a class="btn" href="{{ route('sales.show', $sale->id) }}">
                                 <i class="fas fa-eye text-primary"></i> View
@@ -81,4 +87,8 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+
+    <script>
+      
+    </script>
 @endsection

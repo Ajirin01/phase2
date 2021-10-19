@@ -45,9 +45,9 @@
  h1 {
      text-align: center
  }</style>
-                                </head>
-                                <body oncontextmenu='return false' class='snippet-body'>
-                                <div class="container">
+</head>
+<body oncontextmenu='return false' class='snippet-body'>
+    <div class="container">
     <div class="page-header">
         <h1>Payment Receipt</h1>
     </div>

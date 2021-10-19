@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  {{-- <div class="content-wrapper"> --}}
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -73,7 +73,8 @@
                           </thead>
                           <tbody>
                             {{-- {{$sale_cart}} --}}
-                            <form id="update-empty" action="{{ route('update_cart') }}" method="post">
+                            <form id="update-empty" action="{{ route('sales.update', $sale->id) }}" method="post">
+                              @method('PATCH')
                               @csrf
                               
                               @foreach ($sale_cart as $cart)
@@ -114,15 +115,21 @@
                   <span class="time"><i class="fas fa-money-bill"></i> payment methods</span>
                   <h3 class="timeline-header"><a href="#">Payment Method</a></h3>
                   {{-- <div class="timeline-body"> --}}
-                    <form action="{{ route('process_sale') }}" method="post">
+                    <form action="{{ route('sales.update', $sale->id) }}" method="post">
+                      @method('PATCH')
                       @csrf
                       <select disabled name="payment_method" id="" class="form-control">
                         <option value="{{$sale->payment_method}}">{{$sale->payment_method}}</option>
                         
                       </select>
-                      
+                      <h3 class="timeline-header"><a href="#">Status</a></h3>
+                      <select name="status" id="" class="form-control">
+                        <option value="{{ $sale->status }}">{{ $sale->status }}</option>
+                        <option value="confirmed">confirmed</option>
+                        <option value="revoked">revoked</option>
+                      </select>
                       <div class="timeline-footer">
-                        <input class="btn btn-warning btn-sm form-control" type="submit" value="Finish">
+                        <input class="btn btn-warning btn-sm form-control" type="submit" value="update">
                         {{-- <a class="btn btn-warning btn-sm">Finish</a> --}}
                       </div>
                     </form>
