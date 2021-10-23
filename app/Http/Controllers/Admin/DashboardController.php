@@ -52,7 +52,8 @@ class DashboardController extends Controller
         for ($i=0; $i < count($sales); $i++) { 
             for ($j=0; $j < 12; $j++) { 
                 if (Carbon::parse($sales[$i]->created_at)->month == $j+1) {
-                    array_push($month_sale[$j], $sales[$i]->total);
+                    $total = $sales[$i]->total - $sales[$i]->discount;
+                    array_push($month_sale[$j], $total);
                     array_push($months, Carbon::parse($sales[$i]->created_at)->format('M'));
                 }
             }
@@ -95,12 +96,21 @@ class DashboardController extends Controller
         
         // return response()->json($months_array);
 
+        // return response()->json(($month_sale));
+
+        $dis = 0;
+        for ($i=0; $i < count($sales); $i++) { 
+            $total = $sales[$i]->total;
+            $discount = $sales[$i]->discount;
+            $dis = $dis + ($total - $discount);
+        }
+        
         // return response()->json(Carbon::parse($sales[16]->created_at)->month);
         return view('Admin.dashboard',['latest_orders'=> $latest_orders,
                     'latest_products'=> $latest_products, 'products'=> $products,
                     'sales'=> $sales, 'total_orders'=> $orders,
                     'users'=> $users, 'months'=> $months_array,
-                    'sales_total'=> $sales->sum('total'),
+                    'sales_total'=> $dis,
                     'sale_recap'=> $sale_recap
                 ]);
     }

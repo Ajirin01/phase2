@@ -18,6 +18,7 @@ class CreateSalesTable extends Migration
             $table->string('total');
             $table->longText('cart');
             $table->string('sale_number');
+            $table->integer('discount')->nullable();
             $table->string('payment_method');
             $table->string('status')->nullable();
             $table->timestamps();

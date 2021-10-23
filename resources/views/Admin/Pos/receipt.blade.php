@@ -87,9 +87,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (json_decode($sale['cart']) as $cart)
+                                @foreach (json_decode($sale['cart']) as $cart)            
                                     <tr>
-                                        <td class="col-md-9">{{$cart->product_name}} x {{$cart->product_quantity}}</td>
+                                        <td class="col-md-9">{{$cart->product_name}} (#{{ $cart->product_price }} x {{$cart->product_quantity}}
+                                            @if ($cart->product_quantity == 1)
+                                                unit
+                                            @else
+                                                units
+                                            @endif
+                                            )</td>
                                         <td class="col-md-3"><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$cart->product_price * $cart->product_quantity}} </td>
                                     </tr>
                                 @endforeach
@@ -102,21 +108,41 @@
                                         <p> <strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['total']}} </strong> </p>
                                     </td>
                                 </tr> --}}
-                                <tr style="color: #F81D2D;">
+                                <tr style="color: #F81D2D; font-size: .5rem">
                                     <td class="text-right">
-                                        <h4><strong>Total:</strong></h4>
+                                        <h6><strong>Total:</strong></h6>
                                     </td>
                                     <td class="text-left">
-                                        <h4><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['total']}} </strong></h4>
+                                        <h6><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['total']}} </strong></h6>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td class="text-right">
+                                        <h6><strong>Discount:</strong></h6>
+                                    </td>
+                                    <td class="text-left">
+                                        <h6><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{ $sale['discount'] }} </strong></h6>
                                     </td>
                                 </tr>
 
                                 <tr style="color: #F81D2D;">
                                     <td class="text-right">
-                                        <h4><strong>Payment Option:</strong></h4>
+                                        <h6><strong>Total with discount:</strong></h6>
                                     </td>
                                     <td class="text-left">
-                                        <h4><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['payment_method']}} </strong></h4>
+                                        <h6><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['total']-$sale['discount']}} </strong></h6>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr style="color: #F81D2D;">
+                                    <td class="text-right">
+                                        <h6><strong>Payment Option:</strong></h6>
+                                    </td>
+                                    <td class="text-left">
+                                        <h6><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{$sale['payment_method']}} </strong></h6>
                                     </td>
                                 </tr>
                             </tbody>

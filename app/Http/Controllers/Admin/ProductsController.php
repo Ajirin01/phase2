@@ -203,7 +203,7 @@ class ProductsController extends Controller
     
     public function destroy($id)
     {
-        return response()->json("product delete handler");
+        // return response()->json("product delete handler");
         $product_to_delete = Product::find($id);
 
         $delete_product = $product_to_delete->delete();
@@ -212,6 +212,6 @@ class ProductsController extends Controller
             return redirect()->back()->with('success', 'Product deleted!');
         }else{
             return redirect()->back()->with('errors', 'Product could not delete successfully!');
-        }
+        }return redirect()->back()->with('success', 'Product deleted!');
     }
 }

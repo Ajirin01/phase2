@@ -24,7 +24,7 @@ class SalesController extends Controller
 
     public function index()
     {
-        $sales = Sale::all();
+        $sales = Sale::orderBy('id', 'desc')->get();
         // return response()->json($sales);
         return view('Admin.Pos.sales_list',['sales' => $sales]);
     }
@@ -134,9 +134,21 @@ class SalesController extends Controller
     public function processSale(Request $request){
         $data = $request->all();
 
-        // return response()->json(json_decode($request->cart));
-        $create_sale = Sale::create($data);
+        // $cart = json_decode($request->cart);
+        // array_push($cart, ['discount'=> $request->discount]);
+
+        // $data['cart'] = json_encode($cart);
+        // return response()->json($data);
+        
         $data['sale_rep'] = Auth::user()->name;
+
+        // $total = $request->total;
+        // $discount = $request->discount;
+
+        // $new_total = $total - $discount;
+        // $data['total'] = $new_total;
+
+        $create_sale = Sale::create($data);
 
         if($create_sale){
             foreach (json_decode($request->cart) as $cart) {

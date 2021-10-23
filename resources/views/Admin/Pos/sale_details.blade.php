@@ -103,8 +103,9 @@
               <div>
                 <i class="fas fa-money-bill bg-green"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i>  SALE #{{$sale->sale_number}}</span>
+                  <span class="time"><i class="fas fa-clock"></i>  DISCOUNT #{{$sale->discount}}</span>
                   <h3 class="timeline-header no-border"><a href="#">Total</a> # {{$sale->total}}</h3>
+                  <h3 class="timeline-header no-border text-danger"><a href="#" class="text-danger">Total AFTER DISCOUNT</a> # {{$sale->total - $sale->discount}}</h3>
                 </div>
               </div>
               <!-- END timeline item -->

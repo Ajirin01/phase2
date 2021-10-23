@@ -43,7 +43,7 @@
                     @foreach ($sales as $sale)
                     <tr>
                         <td>{{$sale->sale_number}}</td>
-                        <td>{{$sale->total}}</td>
+                        <td>{{$sale->total - $sale->discount}}</td>
                         <td>{{$sale->payment_method}}</td>
                         <td>{{$sale->status}}</td>
                         <td>

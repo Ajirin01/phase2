@@ -11,6 +11,7 @@ class Sale extends Model
         'cart',
         'sale_number',
         'payment_method',
-        'status'
+        'status',
+        'discount'
     ];
 }

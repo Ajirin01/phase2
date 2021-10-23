@@ -124,6 +124,10 @@
                         <option value="cheque">Cheque</option>
                         <option value="pos">Pos</option>
                       </select>
+                      <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input type="text" name="discount" id="" value="0" class="form-control">
+                      </div>
                       <input type="hidden" name="total" value="{{$total}}">
                       <input type="hidden" name="cart" value="{{json_encode($products)}}">
                       <input type="hidden" name="sale_number" value="{{$sale_number}}">

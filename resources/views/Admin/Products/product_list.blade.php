@@ -49,8 +49,12 @@
                             <a class="btn" href="{{ route('products.edit', $product->id) }}">
                                 <i class="fas fa-edit text-warning"></i> Edit
                             </a>
-                            <a class="btn">
-                                <i class="fas fa-trash text-danger"></i> Delete
+                            <form action="{{ route('products.destroy', $product->id) }}" method="post" id="product-id">
+                              @method('DELETE')
+                              @csrf
+                            </form>
+                            <a class="btn" onclick="event.preventDefault(); document.getElementById('product-id').submit()">
+                                <i class="fas fa-trash text-danger" ></i> Delete
                             </a>
                             {{-- <a class="btn">
                                 <i class="fas fa-pause"></i> Pause
