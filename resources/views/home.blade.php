@@ -322,8 +322,8 @@
                                     <div class="product-item fix">
                                         <div class="product-thumb">
                                             <a href="{{ route('product-details', $product->name) }}">
-                                                <img src="{{ asset('public/uploads/'.$product->image) }}" class="img-pri" alt="">
-                                                <img style="transform: opacity(.8)" src="{{ asset('public/uploads/'.$product->image) }}" class="img-sec" alt="">
+                                                <img style="height: 300px" src="{{ asset('public/uploads/'.$product->image) }}" class="img-pri" alt="">
+                                                <img style="height: 300px; transform: opacity(.8)" src="{{ asset('public/uploads/'.$product->image) }}" class="img-sec" alt="">
                                             </a>
                                             <div class="product-label">
                                                 <span>new</span>
@@ -504,7 +504,7 @@
                       <div class="category-feature-area">
                           <div class="row">
                               <!-- New Products area start -->
-                              <div class="col-lg-4">
+                              <div class="col-lg-6">
                                   <div class="category-wrapper mb-md-24 mb-sm-24">
                                       <div class="section-title-2 d-flex justify-content-between mb-28">
                                           <h3>New Products</h3>
@@ -669,7 +669,7 @@
                               </div>
                               <!-- New Products area end -->
                               <!-- Most viewed area start -->
-                              <div class="col-lg-4">
+                              <div class="col-lg-6">
                                   <div class="category-wrapper mb-md-24 mb-sm-24">
                                       <div class="section-title-2 d-flex justify-content-between mb-28">
                                           <h3>hot sale</h3>
