@@ -141,6 +141,7 @@ class SalesController extends Controller
         // return response()->json($data);
         
         $data['sale_rep'] = Auth::user()->name;
+        $data['status'] = 'confirmed';
 
         // $total = $request->total;
         // $discount = $request->discount;
@@ -158,14 +159,14 @@ class SalesController extends Controller
                     $initial_stock = $product->wholesale_stock;
                     $new_stock = $initial_stock - $cart->product_quantity;
                     
-                    $product->update(['wholesale_stock'=> $new_stock, 'status'=> 'confirmed']);
+                    $product->update(['wholesale_stock'=> $new_stock]);
                 }else{
                     $product = Product::find($cart->product_id);
     
                     $initial_stock = $product->stock;
                     $new_stock = $initial_stock - $cart->product_quantity;
                     
-                    $product->update(['stock'=> $new_stock, 'status'=> 'confirmed']);
+                    $product->update(['stock'=> $new_stock]);
                 }
             }
             // return response()->json($data);
