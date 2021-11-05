@@ -45,8 +45,19 @@
                             <a class="btn" href="{{ route('brands.edit', $brand->id) }}">
                                 <i class="fas fa-edit text-warning"></i> Edit
                             </a>
-                            <a class="btn">
-                                <i class="fas fa-trash text-danger"></i> Delete
+                            <form action="{{ route('brands.destroy', $brand->id) }}" method="post" id="brand-id{{$brand->id}}">
+                              @method('DELETE')
+                              @csrf
+                            </form>
+                            <a class="btn" onclick="event.preventDefault();
+                            var nxt =  confirm('Are you sure you want to delete?');
+                            if(nxt){
+                              document.getElementById('brand-id'+{{$brand->id}}).submit()
+                            }else{
+                              ;
+                            }
+                             ">
+                                <i class="fas fa-trash text-danger" ></i> Delete
                             </a>
                             {{-- <a class="btn">
                                 <i class="fas fa-pause"></i> Pause

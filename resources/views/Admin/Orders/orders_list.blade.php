@@ -66,6 +66,7 @@
                             <a class="btn" href="{{ route('order_details', $order->id) }}">
                                 <i class="fas fa-eye text-primary"></i> View
                             </a>
+                            
                             {{-- <a class="btn">
                                 <i class="fas fa-pause"></i> Pause
                             </a> --}}
