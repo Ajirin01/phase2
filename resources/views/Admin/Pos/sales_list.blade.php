@@ -47,15 +47,21 @@
                         <td>{{$sale->payment_method}}</td>
                         <td>{{$sale->status}}</td>
                         <td>
-                            <form action="{{ route('sales.destroy', $sale->id) }}" method="POST" id="delete-form">
+                            <form action="{{ route('sales.destroy', $sale->id) }}" method="post" id="sale-id{{$sale->id}}">
                               @method('DELETE')
                               @csrf
                             </form>
-                            <a class="btn" href="{{ route('sales.destroy', $sale->id) }}"
-                              onclick="event.preventDefault(); document.getElementById('delete-form').submit()"
-                              >
-                                <i class="fas fa-edit text-danger"></i> delete
+                            <a class="btn" onclick="event.preventDefault();
+                            var nxt =  confirm('Are you sure you want to delete?');
+                            if(nxt){
+                              document.getElementById('sale-id'+{{$sale->id}}).submit()
+                            }else{
+                              ;
+                            }
+                             ">
+                                <i class="fas fa-trash text-danger" ></i> Delete
                             </a>
+                            
                             <a class="btn" href="{{ route('sales.show', $sale->id) }}">
                                 <i class="fas fa-eye text-primary"></i> View
                             </a>

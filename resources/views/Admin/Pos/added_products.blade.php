@@ -94,7 +94,7 @@
                     document.getElementById('update-empty').submit()
                     "
                     >Update</a>
-                    <a class="btn btn-warning btn-sm">Back to Products</a>
+                    <a href="{{ URL::to('/retail/sales/create') }}" class="btn btn-warning btn-sm">Back to Products</a>
                   </div>
                 </div>
               </div>

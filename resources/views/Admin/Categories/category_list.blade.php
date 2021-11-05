@@ -45,12 +45,20 @@
                             <a class="btn" href="{{ route('categories.edit', $category->id) }}">
                                 <i class="fas fa-edit text-warning"></i> Edit
                             </a>
-                            <a class="btn">
-                                <i class="fas fa-trash text-danger"></i> Delete
+                            <form action="{{ route('categories.destroy', $category->id) }}" method="post" id="category-id{{$category->id}}">
+                              @method('DELETE')
+                              @csrf
+                            </form>
+                            <a class="btn" onclick="event.preventDefault();
+                            var nxt =  confirm('Are you sure you want to delete?');
+                            if(nxt){
+                              document.getElementById('category-id'+{{$category->id}}).submit()
+                            }else{
+                              ;
+                            }
+                             ">
+                                <i class="fas fa-trash text-danger" ></i> Delete
                             </a>
-                            {{-- <a class="btn">
-                                <i class="fas fa-pause"></i> Pause
-                            </a> --}}
                         </td>
                       </tr>
                     @endforeach
