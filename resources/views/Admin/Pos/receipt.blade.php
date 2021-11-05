@@ -70,12 +70,12 @@
                     </div> <br />
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h2>PAYMENT RECEIPT</h2>
+                            <h3>PAYMENT RECEIPT</h3>
                             <h5>{{$sale['sale_number']}}</h5>
                         </div>
                     </div> <br />
                     <div>
-                        <table class="table">
+                        <table class="table table-sm">
                             <thead>
                                 <tr>
                                     <th>
@@ -146,7 +146,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table>href="{{ URL::to('/retail/sales/create') }}"
                     </div>
                     <div>
                         <div class="col-md-12">
