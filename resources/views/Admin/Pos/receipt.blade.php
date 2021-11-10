@@ -63,7 +63,7 @@
                         <div class="col-md-4"> <img class="img" alt="Payment Receipt" src="{{ asset('admin/receipt/logo.png') }}" /> </div>
                         <div class="col-md-8 text-right">
                             <h4 style="color: #F81D2D;"><strong>Phase2</strong></h4>
-                            <p>Mallam Habeeb Plaza,<br> Muaza Moh'd road<br> Opp. Old Secretariat<br> Along Old Airport road<br> Minna, Niger State</p>
+                            <p>Mallam Habeeb Plaza, Muaza Moh'd road<br> Opp. Old Secretariat Along Old Airport road<br> Minna, Niger State</p>
                             <p>08162519465</p>
                             <p>Support@Phase2.Com</p>
                         </div>
@@ -146,7 +146,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>href="{{ URL::to('/retail/sales/create') }}"
+                        </table>
                     </div>
                     <div>
                         <div class="col-md-12">

@@ -91,20 +91,36 @@ class SalesController extends Controller
     public function addProductsToSell(Request $request){
         $added_product = $request->all();
 
+        $added_product = $request->cart;
         // return response()->json($added_product);
+
+
+        // return response()->json(json_decode($added_product['cart'])[0]);
 
         $cart = array();
         $total = 0;
         
-        for($i=0; $i<count($added_product['product_name']); $i++){
-            array_push($cart,['product_id'=> $added_product['product_id'][$i],
-                        'product_name'=> $added_product['product_name'][$i],
-                        'product_price'=> $added_product['product_price'][$i],
-                        'product_quantity'=> $added_product['product_quantity'][$i]
+        // for($i=0; $i<count($added_product['product_name']); $i++){
+        //     array_push($cart,['product_id'=> $added_product['product_id'][$i],
+        //                 'product_name'=> $added_product['product_name'][$i],
+        //                 'product_price'=> $added_product['product_price'][$i],
+        //                 'product_quantity'=> $added_product['product_quantity'][$i]
+        //                 ]);
+
+        //     $total += $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
+        // }
+
+        for($i=0; $i<count(json_decode($added_product)); $i++){
+            array_push($cart,['product_id'=> json_decode($added_product)[$i]->product_id,
+                        'product_name'=> json_decode($added_product)[$i]->product_name,
+                        'product_price'=> json_decode($added_product)[$i]->product_price,
+                        'product_quantity'=> json_decode($added_product)[$i]->product_quantity
                         ]);
 
-            $total += $added_product['product_price'][$i] * $added_product['product_quantity'][$i];
+            $total += json_decode($added_product)[$i]->product_price * json_decode($added_product)[$i]->product_quantity;
         }
+
+        // return response()->json($cart);
         
         // return response()->json($total);
         return view('Admin.Pos.added_products',['products' => $cart, 'total'=> $total, 'sale_number'=> $this->sale_number()]);

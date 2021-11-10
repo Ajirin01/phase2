@@ -43,20 +43,24 @@
                         <tbody>
                             
                             @foreach ($products as $product)
-                            <tr>
-                                
-                                    
-                                    <td>{{$product->id}} <input id="product-id{{$product->id}}" type="hidden"  value="{{$product->id}}"></td>
-                                    <td>{{$product->name}} <input id="product-name{{$product->id}}" type="hidden"  value="{{$product->name}}"></td>
-                                    <td width="100px"><input id="product-quantity{{$product->id}}" class="form-control" type="number"  id="" value="1"></td>
-                                    <td>{{$product->price}} <input id="product-price{{$product->id}}" type="hidden"  value="{{$product->price}}"></td>
-                                    <td>
-                                        <input type="checkbox" class="form-control" name="add[]" id="add{{$product->id}}" onclick="return checkall('selector[]',{{$product->id}});">
-                                    </td>
-                            
+                            <tr> 
+                                <td>{{$product->id}} <input id="product-id{{$product->id}}" type="hidden"  value="{{$product->id}}"></td>
+                                <td>{{$product->name}} <input id="product-name{{$product->id}}" type="hidden"  value="{{$product->name}}"></td>
+                                <td width="100px"><input id="product-quantity{{$product->id}}" class="form-control" min="0" type="number"  id="" onchange="getQuantity({{$product->id}})" value="1"></td>
+                                <td>{{$product->price}} <input id="product-price{{$product->id}}" type="hidden"  value="{{$product->price}}"></td>
+                                <td>
+                                    <input type="checkbox" class="form-control" id="add{{$product->id}}" onclick="return checkall('selector[]',{{$product->id}});">
+                                </td>
                             </tr>
+
                             @endforeach
-                    <input id="continue-btn" class="btn btn-primary form-control" type="submit" value="Continue">
+
+                            <input type="text" name="cart" id="cart" style="display: none">
+
+                            <input id="continue-btn" class="btn btn-primary form-control" type="submit" value="Continue">
+                            
+                            
+                            {{-- <input id="continue-btn" class="btn btn-primary form-control" type="submit" value="Continue" onclick="showData()"> --}}
 
                         
                         </tbody>
@@ -87,29 +91,112 @@
     <script>
       var continue_btn= document.getElementById('continue-btn')
       continue_btn.style.display = 'none'
-    function checkall(selector,id) {
-        console.log("add"+id)
+      var cart = document.getElementById('cart')
+      var data = {}
+      var data_array = []
+
+      function getQuantity(id){
         var check_item = document.getElementById('add'+id)
         var product_id = document.getElementById('product-id'+id)
         var product_price = document.getElementById('product-price'+id)
         var product_name = document.getElementById('product-name'+id)
         var product_quantity = document.getElementById('product-quantity'+id)
-        
-        console.log(check_item.checked == true)
-        if (check_item.checked == true) {
-            product_id.name = "product_id[]"
-            product_price.name = "product_price[]"
-            product_name.name = "product_name[]"
-            product_quantity.name = "product_quantity[]"
-            continue_btn.style.display = 'block'
-        } else {
-            product_id.name = ""
-            product_price.name = ""
-            product_name.name = ""
-            product_quantity.name = ""
-            continue_btn.style.display = 'none'
+
+        // const data_array_copy = data_array.map(da => {
+        // da.product_id === product_id.value?
+        // {...da, product_quantity: product_quantity.value } : da
+        // console.log(da.product_id === product_id.value)
+        // console.log(da)
+        // })
+
+        //Find index of specific object using findIndex method.    
+        data_array_index = data_array.findIndex((obj => obj.product_id == product_id.value));
+
+        //Log object to Console.
+        // console.log("Before update: ", data_array[data_array_index])
+
+        //Update object's name property.
+        try {
+          data_array[data_array_index].product_quantity = product_quantity.value
+        } catch (error) {
+          
         }
 
-    }
+        //Log object to console again.
+        // console.log("After update: ", data_array[data_array_index])
+        // data_array = [...data_array, data_array[data_array_index]]
+
+        // const data_array_copy = data_array.map(da =>
+        //    console.log(da.product_id)
+        // )
+        // const data_array_copy = data_array.forEach(da => {
+        //   console.log(da.product_quantity)
+        // });
+
+        // console.log('quantity', product_quantity.value)
+        console.log(data_array)
+        cart.value = JSON.stringify(data_array)
+
+      }
+
+      function checkall(selector,id){
+          console.log("add"+id)
+          var check_item = document.getElementById('add'+id)
+          var product_id = document.getElementById('product-id'+id)
+          var product_price = document.getElementById('product-price'+id)
+          var product_name = document.getElementById('product-name'+id)
+          var product_quantity = document.getElementById('product-quantity'+id)
+
+          // cart.name = "cart"
+          
+          console.log(id+ " is now " +check_item.checked + " quantity " + product_quantity.value)
+          if (check_item.checked == true) {
+              // product_id.name = "product_id[]"
+              // product_price.name = "product_price[]"
+              // product_name.name = "product_name[]"
+              // product_quantity.name = "product_quantity[]"
+
+              data['product_id'] = product_id.value
+              data['product_price'] = product_price.value
+              data['product_name'] = product_name.value
+              data['product_quantity'] = product_quantity.value
+
+              data_array = [...data_array, data]
+
+              data = {}
+              // data_array.push(data)
+              
+          } else {
+              // product_id.name = ""
+              // product_price.name = ""
+              // product_name.name = ""
+              // product_quantity.name = ""
+              data_array = data_array.filter(arr => arr.product_id !== product_id.value )
+              // if(data_array.length == 0){
+              //   continue_btn.style.display = 'none'
+              // }else{
+              //   continue_btn.style.display = 'block'
+              // }
+              
+          }
+
+          if(data_array.length == 0){
+            continue_btn.style.display = 'none'
+          }else{
+            continue_btn.style.display = 'block'
+          } 
+
+          console.log(data_array)
+          cart.value = JSON.stringify(data_array)
+          console.log(cart.value)
+      }
+
+      function showData(){
+        event.preventDefault()
+
+        console.log(data)
+      }
+
+      
     </script>
 @endsection
