@@ -41,10 +41,11 @@
           <div class="card-body pad">
             <form action="{{ route('categories.update', '1')}}" method="post">
               @csrf
+              @method('PATCH')
               <div class="mb-3">
                   <div class="form-group">
                       <label>Category Name</label>
-                      <input type="text" class="form-control" name="name" placeholder="Category Name">
+                      <input type="text" class="form-control" value="{{ $category->name }}" name="name" placeholder="Category Name">
                   </div>
               </div>
               <div class="mb-3">

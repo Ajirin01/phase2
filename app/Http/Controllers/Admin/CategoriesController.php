@@ -59,17 +59,39 @@ class CategoriesController extends Controller
     
     public function edit($id)
     {
-        return view('Admin.Categories.category_edit_form');
+        $category = Category::find($id);
+        return view('Admin.Categories.category_edit_form',['category'=> $category]);
         
     }
     
     public function update(Request $request, $id)
     {
-        return response()->json($request->json());
+        // $category_name = Category::where('name', $request->name)->
+        $category_to_update = Category::find($id);
+
+        $update_category = $category_to_update->update([$request->name]);
+
+        if($update_category){
+            return redirect()->back()->with('success', 'Category successfully updated!');
+        }else {
+            return redirect()->back()->with('errors', 'Category could not successfully updated!');
+
+        }
+        // return response()->json($request->all());
     }
 
     public function destroy($id)
     {
-        return response()->json($id);
+        $category_to_delete = Category::find($id);
+
+        $delete_category = $category_to_delete->delete();
+
+        if($delete_category){
+            return redirect()->back()->with('success', 'Category successfully deleted!');
+        }else {
+            return redirect()->back()->with('errors', 'Category could not successfully deleted!');
+
+        }
+        // return response()->json($id);
     }
 }

@@ -41,6 +41,7 @@
           <div class="card-body pad">
             <form action="{{ route('brands.update', $brand_id)}}" method="post" enctype="multipart/form-data">
               @csrf
+              @method("PATCH")
               <div class="mb-3">
                   <div class="form-group">
                       <label>Brand Name</label>

@@ -59,16 +59,36 @@ class BrandsController extends Controller
     public function edit($id)
     {
         $brand_to_edit = Brand::find($id);
-        return view('Admin.Brands.brand_creation_form', ['brand_id'=>$id, 'brand'=>$brand_to_edit]);
+        return view('Admin.Brands.brand_edit_form', ['brand_id'=>$id, 'brand'=>$brand_to_edit]);
     }
 
     public function update(Request $request, $id)
     {
-        return response()->json($request->all());
+        $brand_to_update = Brand::find($id);
+
+        $update_brand = $brand_to_update->update(['name'=> $request->name,'status'=> $request->status]);
+
+        if($update_brand){
+            return redirect()->back()->with('success', 'Brand successfully updated!');
+        }else {
+            return redirect()->back()->with('errors', 'Brand could not successfully updated!');
+
+        }
+        // return response()->json($request->all());
     }
 
     public function destroy($id)
     {
-        return response()->json($id);
+        $brand_to_delete = Brand::find($id);
+
+        $delete_brand = $brand_to_delete->delete();
+
+        if($delete_brand){
+            return redirect()->back()->with('success', 'Brand successfully deleted!');
+        }else {
+            return redirect()->back()->with('errors', 'Brand could not successfully deleted!');
+
+        }
+        // return response()->json($id);
     }
 }
