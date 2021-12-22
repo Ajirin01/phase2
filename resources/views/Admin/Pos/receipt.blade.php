@@ -56,7 +56,7 @@
     @endphp --}}
     <div class="container" id="printout">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 body-main">
+            <div class="col-md-12 body-main">
                 <div class="col-md-12">
                     <div class="row">
                         <!-- <divclass="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png') }}" /> </div> -->
@@ -169,20 +169,16 @@
     <script> 
             domtoimage.toJpeg(document.getElementById('printout'), { quality: 0.95 })
             .then(function (dataUrl) {
-            var el = "<img src='"+dataUrl+"'/>";
-            // link.download = 'my-image-name.jpeg';
-            // link.href = dataUrl;
-            // link.click();
-            // console.log(el)
+            var el = "<img style='position: absolute; top: 0px; width: 100%; height: 100%' src='"+dataUrl+"'/>";
             
             var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
-            display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
+            display_setting+="scrollbars=no,width=500, height=1000, left=100, top=25";  
             //   var tableData = '<table border="1">'+document.getElementsByTagName('table')[0].innerHTML+'</table>';
             // var content_innerhtml = document.getElementById("printout").innerHTML;  
             var document_print=window.open("","",display_setting); 
             // console.log(document_print);
             document_print.document.open();  
-            document_print.document.write('<body style="font-family:verdana; font-size: 5pt; margin-top: 2cm; " onLoad="self.print(); self.close();" >');  
+            document_print.document.write('<body style="width: 400px; height: 550px; font-family:verdana; font-size: 5pt; margin-top: 2cm; " onLoad="self.print(); self.close();" >');  
             document_print.document.write(el);  
             document_print.document.write('</body></html>');  
             // console.log(document_print.document.getElementsByTagName('img')[0].style.padding == "");
@@ -190,20 +186,6 @@
             document_print.document.close();
             // document_print.close(); 
             });
-            // var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
-            // display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
-            // //   var tableData = '<table border="1">'+document.getElementsByTagName('table')[0].innerHTML+'</table>';
-            // var content_innerhtml = document.getElementById("printout").innerHTML;  
-            // var document_print=window.open("","",display_setting);  
-            // document_print.document.open();  
-            // document_print.document.write('<body style="font-family:verdana; font-size: 5pt; margin-top: 4cm; " onLoad="self.print();self.close();" >');  
-            // document_print.document.write(content_innerhtml);  
-            // document_print.document.write('</body></html>');  
-            // document_print.print();  
-            // document_print.document.close(); 
-    
-            // return false;  
-        // })
     </script>
     </body>
 </html>
