@@ -89,12 +89,12 @@
                     </div>
                   </div>
                   <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm"
+                    <a class="btn btn-primary btn-md"
                     onclick="event.preventDefault()
                     document.getElementById('update-empty').submit()
                     "
-                    >Update</a>
-                    <a href="{{ URL::to('/retail/sales/create') }}" class="btn btn-warning btn-sm">Back to Products</a>
+                    >   Update  </a>
+                    {{-- <a href="{{ URL::to('/retail/sales/create') }}" class="btn btn-warning btn-sm">Back to Products</a> --}}
                   </div>
                 </div>
               </div>

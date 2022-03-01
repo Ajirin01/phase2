@@ -123,6 +123,7 @@ class SalesController extends Controller
         // return response()->json($cart);
         
         // return response()->json($total);
+        Session::put('cart', $cart);
         return view('Admin.Pos.added_products',['products' => $cart, 'total'=> $total, 'sale_number'=> $this->sale_number()]);
     }
 

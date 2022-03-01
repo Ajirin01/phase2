@@ -47,6 +47,7 @@
     <!-- Main Style CSS -->
     <link href="{{ asset('site/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('site/assets/css/skin-default.css') }}" rel="stylesheet" id="galio-skin">
+    <script src="{{ asset('site/assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
 </head>
 
 <body>
@@ -117,13 +118,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-5">
                             <div class="header-call-action">
-                                <a href="#">
+                                <a href="mailto:Support@Phase2.Com">
                                     <i class="fa fa-envelope"></i>
-                                    phase2@website.com
+                                    Support@Phase2.Com
                                 </a>
-                                <a href="#">
+                                <a href="tel:+2348162519465">
                                     <i class="fa fa-phone"></i>
-                                    phase2 phone number
+                                    +2348162519465
                                 </a>
                             </div>
                         </div>
@@ -162,7 +163,7 @@
                                             <a href="{{route('cart')}}">my cart</a>
                                         </li>
                                         <li>
-                                            <a href="{{route('checkout')}}">checkout</a>
+                                            <a href="{{route('cart')}}">checkout</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -238,9 +239,10 @@
                                             #{{$subtotal}}.00
                                         </div>
                                         <ul class="cart-list">
-                                            @foreach ($cart as $item)
+                                            @foreach ($cart as $key=> $item)
                                             @php
                                                 $product = App\Product::find($item->product_id);
+                                                // echo json_encode($item->product_id);
                                             @endphp
                                                 <li>
                                                     <div class="cart-img">
@@ -428,22 +430,22 @@
             <div class="footer-widget-area pt-40 pb-38 pb-sm-10">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-md-4 col-sm-6">
                             <div class="footer-widget mb-sm-30">
                                 <div class="widget-title mb-10 mb-sm-6">
                                     <h4>contact us</h4>
                                 </div>
                                 <div class="widget-body">
                                     <ul class="location">
-                                        <li><i class="fa fa-envelope"></i>support@phase2.com</li>
-                                        <li><i class="fa fa-phone"></i>phase2 pone number</li>
-                                        <li><i class="fa fa-map-marker"></i>location address</li>
+                                        <li><a href="mailto:support@phase2.com"><i class="fa fa-envelope"></i>support@phase2.com</a></li>
+                                        <li><a href="tel:+2348162519465"><i class="fa fa-phone"></i>+2348162519465</a></li>
+                                        <li><i class="fa fa-map-marker"></i>Mallam Habeeb Plaza, Muaza Moh'd road<br> Opp. Old Secretariat Along Old Airport road<br> Minna, Niger State</li>
                                     </ul>
                                     <a class="map-btn" href="{{ route('contact-us') }}">open in google map</a>
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-md-4 col-sm-6">
                             <div class="footer-widget mb-sm-30">
                                 <div class="widget-title mb-10 mb-sm-6">
                                     <h4>my account</h4>
@@ -458,7 +460,7 @@
                                 </div>
                             </div> <!-- single widget end -->
                         </div> <!-- single widget column end -->
-                        <div class="col-md-3 col-sm-6">
+                        {{-- <div class="col-md-3 col-sm-6">
                             <div class="footer-widget mb-sm-30">
                                 <div class="widget-title mb-10 mb-sm-6">
                                     <h4>short code</h4>
@@ -473,19 +475,35 @@
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->
-                        </div> <!-- single widget column end -->
-                        <div class="col-md-3 col-sm-6">
+                        </div> <!-- single widget column end --> --}}
+                        <div class="col-md-4 col-sm-6">
                             <div class="footer-widget mb-sm-30">
                                 <div class="widget-title mb-10 mb-sm-6">
                                     <h4>product tags</h4>
                                 </div>
                                 <div class="widget-body">
                                     <ul>
-                                        <li><a href="#">Suppliments</a></li>
+                                        @foreach ($categories as $key=> $cat)
+                                            <li><a href="{{ route('products-by-category', $cat->name) }}">{{ $cat->name }}</a></li>
+                                            @if ($key == 3)
+                                                @php
+                                                    break;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @foreach ($brands as $key=> $brand)
+                                            <li><a href="{{ route('products-by-brand', $brand->name) }}">{{ $brand->name }}</a></li>
+                                            @if ($key == 3)
+                                                @php
+                                                    break;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        {{-- <li><a href="#">Suppliments</a></li>
                                         <li><a href="#">Anti-Malaria</a></li>
                                         <li><a href="#">Anti-Biotic</a></li>
                                         <li><a href="#">Hospital</a></li>
-                                        <li><a href="#">Self Care</a></li>
+                                        <li><a href="#">Self Care</a></li> --}}
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->

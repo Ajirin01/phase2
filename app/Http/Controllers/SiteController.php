@@ -94,9 +94,13 @@ class SiteController extends Controller
             if(json_encode($product_exit) != "null" && $product_exit->shopping_type == $data['shopping_type']){
                 $update_quantity = $product_exit->product_quantity + $data['product_quantity'];
                 $product_exit->update(['product_quantity'=>$update_quantity]);
+                Session::put('msg', 'created');
+                Session::put('cart', $product_exit);
                 return redirect()->back();
             }else{
                 $add_to_cart = Cart::create($data);
+                Session::put('msg', 'created');
+                Session::put('cart', $data);
                 return redirect()->back();
             }
         }
